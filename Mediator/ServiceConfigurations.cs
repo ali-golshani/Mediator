@@ -4,7 +4,7 @@ namespace Mediator;
 
 public static class ServiceConfigurations
 {
-    public static void RegisterServices(IServiceCollection services)
+    public static void AddMediator(IServiceCollection services)
     {
         services.AddScoped<IMediator, Mediator>();
     }

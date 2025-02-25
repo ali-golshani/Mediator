@@ -7,7 +7,7 @@ public static class ServiceCollectionBuilder
     public static IServiceCollection Build()
     {
         var services = new ServiceCollection();
-        Mediator.ServiceConfigurations.RegisterServices(services);
+        Mediator.ServiceConfigurations.AddMediator(services);
         ServiceConfigurations.RegisterServices(services);
         return services;
     }
