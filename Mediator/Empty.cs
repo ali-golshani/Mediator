@@ -2,7 +2,7 @@
 
 public readonly struct Empty : IEquatable<Empty>, IComparable<Empty>, IComparable
 {
-    public static readonly Empty Value = new Empty();
+    public static readonly Empty Value = new();
     public static readonly Task<Empty> Task = System.Threading.Tasks.Task.FromResult(Value);
 
     public int CompareTo(Empty other) => 0;

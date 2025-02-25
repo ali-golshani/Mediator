@@ -13,8 +13,13 @@ internal static class Program
         using var scope = rootServiceProvider.CreateScope();
         var serviceProvider = scope.ServiceProvider;
         await Run_A(serviceProvider);
+        Console.WriteLine("______________________");
         await Run_B(serviceProvider);
+        Console.WriteLine("______________________");
+        await Run_SB(serviceProvider);
+        Console.WriteLine("______________________");
 
+        Console.WriteLine();
         Console.WriteLine("Press Enter to Exit.");
         Console.ReadLine();
     }
@@ -22,17 +27,24 @@ internal static class Program
     private static async Task Run_A(IServiceProvider serviceProvider)
     {
         var mediator = serviceProvider.GetRequiredService<IMediator>();
-        var numbers = await mediator.Send(new Requests.NumbersQuery.Request(), default);
-        var text = string.Join(' ', numbers);
-        Console.WriteLine(text);
+        var response = await mediator.Send(new Requests.RequestA.Request(), default);
+        Console.WriteLine(response);
     }
 
     private static async Task Run_B(IServiceProvider serviceProvider)
     {
         var mediator = serviceProvider.GetRequiredService<IMediator>();
-        await mediator.Send(new Requests.RegisterNumberCommand.Request
+        var response = await mediator.Send(new Requests.RequestB.Request
         {
             Number = 1020
         }, default);
+        Console.WriteLine(response);
+    }
+
+    private static async Task Run_SB(IServiceProvider serviceProvider)
+    {
+        var mediator = serviceProvider.GetRequiredService<IMediator>();
+        var response = await mediator.Send(new Requests.SpecialRequestB.Request(), default);
+        Console.WriteLine(response);
     }
 }

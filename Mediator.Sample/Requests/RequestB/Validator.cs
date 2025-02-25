@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Mediator.Sample.Requests.RegisterNumberCommand;
+namespace Mediator.Sample.Requests.RequestB;
 
 internal sealed class Validator : AbstractValidator<Request>
 {
