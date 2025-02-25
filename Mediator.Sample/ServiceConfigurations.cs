@@ -1,9 +1,9 @@
 ﻿using Mediator.Extensions;
 using Mediator.Middlewares;
+using Mediator.Sample.Extensions;
 using Mediator.Sample.Middlewares;
 using Mediator.Sample.Pipelines;
 using Microsoft.Extensions.DependencyInjection;
-using System.Reflection;
 
 namespace Mediator.Sample;
 
@@ -22,18 +22,5 @@ public static class ServiceConfigurations
 
         services.AddTransient(typeof(IPipeline<,>), typeof(RequestPipelineB<,>));
         services.RegisterMiddlewares<RequestPipelineBConfiguration>();
-    }
-
-    public static void RegisterValidators(this IServiceCollection services, params Assembly[] assemblies)
-    {
-        services.Scan(scan =>
-        {
-            scan
-                .FromAssemblies(assemblies)
-                .AddClasses(classes => classes.AssignableTo(typeof(FluentValidation.IValidator<>)))
-                .AsImplementedInterfaces()
-                .WithTransientLifetime()
-                ;
-        });
     }
 }
