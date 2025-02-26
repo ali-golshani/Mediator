@@ -10,6 +10,6 @@ public class MultipleRequestPipelinesAreRegisteredException<TRequest> : Mediator
 
     private static string ExceptionMessage(Type requestType)
     {
-        return $"Multiple Pipelines of '{requestType}' is Registered.";
+        return $"Multiple pipelines for '{requestType}' have been registered.";
     }
 }

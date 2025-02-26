@@ -8,6 +8,6 @@ public class RequestPipelineIsNotRegisteredException<TRequest> : MediatorExcepti
 
     private static string ExceptionMessage(Type requestType)
     {
-        return $"Pipeline of '{requestType}' is not Registered.";
+        return $"The Pipeline for '{requestType}' is not Registered.";
     }
 }
