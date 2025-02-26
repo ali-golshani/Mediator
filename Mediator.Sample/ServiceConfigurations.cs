@@ -12,9 +12,12 @@ public static class ServiceConfigurations
     public static void RegisterServices(IServiceCollection services)
     {
         services.RegisterRequestHandlers();
+        services.RegisterValidators();
+        services.RegisterPipelines();
+    }
 
-        services.RegisterValidators(typeof(ServiceConfigurations).Assembly);
-
+    private static void RegisterPipelines(this IServiceCollection services)
+    {
         services.AddTransient(typeof(ValidationMiddleware<,>));
         services.AddTransient(typeof(ExceptionHandlingMiddleware<,>));
 
