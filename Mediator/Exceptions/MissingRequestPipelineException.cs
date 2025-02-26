@@ -1,8 +1,8 @@
 ﻿namespace Mediator.Exceptions;
 
-public class RequestPipelineIsNotRegisteredException<TRequest> : MediatorException
+public class MissingRequestPipelineException<TRequest> : MediatorException
 {
-    public RequestPipelineIsNotRegisteredException()
+    public MissingRequestPipelineException()
         : base(ExceptionMessage(typeof(TRequest)))
     { }
 
