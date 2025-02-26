@@ -1,8 +1,8 @@
 ﻿namespace Mediator.Exceptions;
 
-public class MultipleRequestPipelinesAreRegisteredException<TRequest> : MediatorException
+public class MultipleRequestPipelinesHaveBeenRegisteredException<TRequest> : MediatorException
 {
-    public MultipleRequestPipelinesAreRegisteredException(Type[] pipelineTypes)
+    public MultipleRequestPipelinesHaveBeenRegisteredException(Type[] pipelineTypes)
         : base(ExceptionMessage(typeof(TRequest)))
     {
         Data["Pipelines"] = pipelineTypes;

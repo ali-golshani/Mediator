@@ -22,7 +22,7 @@ internal sealed class Mediator(IServiceProvider serviceProvider) : IMediator
         if (pipelines.Count > 1)
         {
             var pipelineTypes = pipelines.Select(x => x.GetType()).ToArray();
-            throw new MultipleRequestPipelinesAreRegisteredException<TRequest>(pipelineTypes);
+            throw new MultipleRequestPipelinesHaveBeenRegisteredException<TRequest>(pipelineTypes);
         }
 
         var pipeline = pipelines[0];
