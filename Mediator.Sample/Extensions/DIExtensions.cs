@@ -13,7 +13,7 @@ public static class DIExtensions
 
     public static void RegisterRequestHandlers(this IServiceCollection services, params Assembly[] assemblies)
     {
-        services.RegisterImplementedInterfaces(typeof(IRequestHandler<,>), assemblies);
+        services.RegisterAsImplementedInterfaces(typeof(IRequestHandler<,>), assemblies);
     }
 
     public static void RegisterValidators(this IServiceCollection services)
@@ -24,10 +24,10 @@ public static class DIExtensions
 
     public static void RegisterValidators(this IServiceCollection services, params Assembly[] assemblies)
     {
-        services.RegisterImplementedInterfaces(typeof(FluentValidation.IValidator<>), assemblies);
+        services.RegisterAsImplementedInterfaces(typeof(FluentValidation.IValidator<>), assemblies);
     }
 
-    public static void RegisterImplementedInterfaces(
+    public static void RegisterAsImplementedInterfaces(
         this IServiceCollection services,
         Type interfaceType,
         params Assembly[] assemblies)
