@@ -7,21 +7,33 @@ internal static class Program
     static async Task Main()
     {
         var services = ServiceCollectionBuilder.Build();
-
         var rootServiceProvider = services.BuildServiceProvider();
 
         using var scope = rootServiceProvider.CreateScope();
         var serviceProvider = scope.ServiceProvider;
+
+        try
+        {
+            await Run(serviceProvider);
+        }
+        catch (Exception exp)
+        {
+            Console.WriteLine(exp);
+        }
+
+        Console.WriteLine();
+        Console.WriteLine("Press Enter to Exit.");
+        Console.ReadLine();
+    }
+
+    private static async Task Run(IServiceProvider serviceProvider)
+    {
         await Run_A(serviceProvider);
         Console.WriteLine("______________________");
         await Run_B(serviceProvider);
         Console.WriteLine("______________________");
         await Run_SB(serviceProvider);
         Console.WriteLine("______________________");
-
-        Console.WriteLine();
-        Console.WriteLine("Press Enter to Exit.");
-        Console.ReadLine();
     }
 
     private static async Task Run_A(IServiceProvider serviceProvider)

@@ -2,9 +2,11 @@
 
 public class MultipleRequestPipelinesAreRegisteredException<TRequest> : MediatorException
 {
-    public MultipleRequestPipelinesAreRegisteredException()
+    public MultipleRequestPipelinesAreRegisteredException(Type[] pipelineTypes)
         : base(ExceptionMessage(typeof(TRequest)))
-    { }
+    {
+        Data["Pipeline-Types"] = pipelineTypes;
+    }
 
     private static string ExceptionMessage(Type requestType)
     {
