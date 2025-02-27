@@ -4,7 +4,13 @@ This mediator enables the definition of different pipelines for various request 
 
 ## Usage
 
-## Defining Requests
+## **Define a Marker Interface or Base Class for Each Pipeline requests**
+
+   ```csharp
+   public interface IRequestA { }
+   ```
+   
+## Define Requests and Request Handlers
 To implement the `Mediator` class without relying on 'C# Reflection', define the request type as a generic argument within the `IRequest` interface.
 
 ```csharp
@@ -14,9 +20,17 @@ public sealed class RequestX : IRequest<RequestX, string>, IRequestA
 {
     // Implementation details
 }
+
+public sealed class RequestXHandler : IRequestHandler<RequestX, string>
+{
+    public Task<string> Handle(RequestX request, CancellationToken cancellationToken)
+    {
+        // ...
+    }
+}
 ```
 
-## Defining Middlewares
+## Define Middlewares
 
 Custom middleware can be created to process general or specific request types. C#'s generic type constraints (`where` keyword) can be used to enforce type restrictions.
 
@@ -43,15 +57,7 @@ public sealed class SpecialMiddleware<TRequest, TResponse> : IMiddleware<TReques
 }
 ```
 
-## Defining Pipelines
-
-1. **Define a Marker Interface or Base Class for Each Pipeline**
-
-   ```csharp
-   public interface IRequestA { }
-   ```
-
-2. **Define Pipeline**
+## Define Pipelines
 
    Pipelines can be defined in two ways:
 
@@ -135,3 +141,13 @@ public sealed class SpecialMiddleware<TRequest, TResponse> : IMiddleware<TReques
    services.AddTransient(typeof(IPipeline<,>), typeof(PipelineB<,>));
    services.RegisterMiddlewares<PipelineBConfiguration>();
    ```
+## Use IMediator for handling requests
+
+```csharp
+private static async Task Sample(IMediator mediator, CancellationToken cancellationToken)
+{
+    var request = new RequestX() { /* ... */ };
+    var response = await mediator.Send(request, cancellationToken);
+    // ...
+}
+```
