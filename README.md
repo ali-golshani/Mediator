@@ -141,7 +141,7 @@ public sealed class SpecialMiddleware<TRequest, TResponse> : IMiddleware<TReques
    services.AddTransient(typeof(IPipeline<,>), typeof(PipelineB<,>));
    services.RegisterMiddlewares<PipelineBConfiguration>();
    ```
-## Use IMediator for handling requests
+## Use IMediator to handle requests
 
 ```csharp
 private static async Task Sample(IMediator mediator, CancellationToken cancellationToken)
