@@ -10,7 +10,7 @@ This mediator enables the definition of different pipelines for various request 
    public interface IRequestA { }
    ```
    
-## Define Requests and Request Handlers
+### Define Requests and Request Handlers
 
 
 ```csharp
@@ -32,7 +32,7 @@ public sealed class RequestXHandler : IRequestHandler<RequestX, string>
 
 The `TRequest` generic parameter in the `IRequest` interface is designed to eliminate the need for **C# Reflection** in the implementation of the `Mediator` class. This approach ensures **type safety** and significantly reduces the runtime overhead commonly associated with reflection-based solutions.
 
-## Define Middlewares
+### Define Middlewares
 
 Custom middleware can be created to process general or specific request types. C#'s generic type constraints (`where` keyword) can be used to enforce type restrictions.
 
@@ -59,11 +59,11 @@ public sealed class SpecialMiddleware<TRequest, TResponse> : IMiddleware<TReques
 }
 ```
 
-## Define Pipelines
+### Define Pipelines
 
    Pipelines can be defined in two ways:
 
-   ### a. Using the `Pipeline` Base Class
+   #### a. Using the `Pipeline` Base Class
 
    The `Pipeline` base class accepts a request handler (`IRequestHandler`) along with pipeline middlewares (`IMiddleware`) as input parameters.
 
@@ -97,7 +97,7 @@ public sealed class SpecialMiddleware<TRequest, TResponse> : IMiddleware<TReques
    services.AddScoped(typeof(IPipeline<,>), typeof(PipelineA<,>));
    ```
 
-   ### b. Using the `KeyedPipeline` Base Class (Recommended)
+   #### b. Using the `KeyedPipeline` Base Class (Recommended)
 
    This approach involves defining a uniquely named pipeline class along with a configuration class that implements the `IKeyedPipelineConfiguration` interface.
 
@@ -143,7 +143,7 @@ public sealed class SpecialMiddleware<TRequest, TResponse> : IMiddleware<TReques
    services.AddTransient(typeof(IPipeline<,>), typeof(PipelineB<,>));
    services.RegisterMiddlewares<PipelineBConfiguration>();
    ```
-## Use IMediator to handle requests
+### Use IMediator to handle requests
 
 ```csharp
 private static async Task Sample(IMediator mediator, CancellationToken cancellationToken)
