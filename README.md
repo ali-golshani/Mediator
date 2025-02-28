@@ -14,8 +14,6 @@ This mediator enables the definition of different pipelines for various request 
 
 
 ```csharp
-public interface IRequest<in TRequest, out TResponse> { }
-
 public sealed class RequestX : IRequest<RequestX, string>, IRequestA
 {
     // Implementation details
