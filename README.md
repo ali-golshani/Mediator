@@ -4,7 +4,7 @@ This mediator enables the definition of different pipelines for various request 
 
 ## Usage
 
-## **Define a Marker Interface or Base Class for Each Pipeline requests**
+### **Define a Marker Interface or Base Class for Each Pipeline requests**
 
    ```csharp
    public interface IRequestA { }
