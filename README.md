@@ -11,7 +11,7 @@ This mediator enables the definition of different pipelines for various request 
    ```
    
 ## Define Requests and Request Handlers
-To avoid relying on **C# Reflection** in implementation of the `Mediator` class, it's essential to define the request type as a generic argument in the `IRequest` interface. This approach ensures type safety and avoids the runtime overhead associated with reflection.
+
 
 ```csharp
 public interface IRequest<in TRequest, out TResponse> { }
@@ -29,6 +29,8 @@ public sealed class RequestXHandler : IRequestHandler<RequestX, string>
     }
 }
 ```
+
+(The **TRequest** generic parameter in the `IRequest` interface is designed to eliminate the need for **C# Reflection** in the implementation of the `Mediator` class. This approach ensures **type safety** and significantly reduces the runtime overhead commonly associated with reflection-based solutions.)
 
 ## Define Middlewares
 
