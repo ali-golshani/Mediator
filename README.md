@@ -77,7 +77,7 @@ public sealed class SpecialMiddleware<TRequest, TResponse> : IMiddleware<TReques
        }
    }
 
-   public abstract class PipelineA<TRequest, TResponse> : Pipeline<TRequest, TResponse>
+   public class PipelineA<TRequest, TResponse> : Pipeline<TRequest, TResponse>
        where TRequest : IRequest<TRequest, TResponse>, IRequestA
    {
        public PipelineA(
