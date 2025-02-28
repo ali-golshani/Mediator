@@ -68,17 +68,6 @@ public sealed class SpecialMiddleware<TRequest, TResponse> : IMiddleware<TReques
    The `Pipeline` base class accepts a request handler (`IRequestHandler`) along with pipeline middlewares (`IMiddleware`) as input parameters.
 
    ```csharp
-   public abstract class Pipeline<TRequest, TResponse> : IPipeline<TRequest, TResponse>
-       where TRequest : IRequest<TRequest, TResponse>
-   {
-       protected Pipeline(
-           IRequestHandler<TRequest, TResponse> handler,
-           params IMiddleware<TRequest, TResponse>[] middlewares)
-       {
-           // Base pipeline implementation
-       }
-   }
-
    public sealed class PipelineA<TRequest, TResponse> : Pipeline<TRequest, TResponse>
        where TRequest : IRequest<TRequest, TResponse>, IRequestA
    {
@@ -102,17 +91,6 @@ public sealed class SpecialMiddleware<TRequest, TResponse> : IMiddleware<TReques
    This approach involves defining a uniquely named pipeline class along with a configuration class that implements the `IKeyedPipelineConfiguration` interface.
 
    ```csharp
-   public abstract class KeyedPipeline<TRequest, TResponse> : IPipeline<TRequest, TResponse>
-       where TRequest : IRequest<TRequest, TResponse>
-   {
-       protected KeyedPipeline(IServiceProvider serviceProvider, string pipelineName)
-       { 
-            // ...
-       }
-
-       // Keyed pipeline base class implementation
-   }
-
    internal sealed class PipelineB<TRequest, TResponse> : KeyedPipeline<TRequest, TResponse>
        where TRequest : IRequest<TRequest, TResponse>, IRequestB
    {
