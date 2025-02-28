@@ -30,7 +30,9 @@ public sealed class RequestXHandler : IRequestHandler<RequestX, string>
 }
 ```
 
-(The `TRequest` generic parameter in the `IRequest` interface is designed to eliminate the need for **C# Reflection** in the implementation of the `Mediator` class. This approach ensures **type safety** and significantly reduces the runtime overhead commonly associated with reflection-based solutions.)
+<!--
+The `TRequest` generic parameter in the `IRequest` interface is designed to eliminate the need for **C# Reflection** in the implementation of the `Mediator` class. This approach ensures **type safety** and significantly reduces the runtime overhead commonly associated with reflection-based solutions.
+-->
 
 ## Define Middlewares
 
