@@ -18,6 +18,7 @@ public static class ServiceConfigurations
 
     private static void RegisterPipelines(this IServiceCollection services)
     {
+        /// Required for RequestPipelineA registration
         services.AddTransient(typeof(ValidationMiddleware<,>));
         services.AddTransient(typeof(ExceptionHandlingMiddleware<,>));
 

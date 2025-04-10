@@ -29,11 +29,16 @@ internal static class Program
     private static async Task Run(IServiceProvider serviceProvider)
     {
         await Run_A(serviceProvider);
-        Console.WriteLine("______________________");
+
+        Console.WriteLine();
+
         await Run_B(serviceProvider);
-        Console.WriteLine("______________________");
+
+        Console.WriteLine();
+
         await Run_SB(serviceProvider);
-        Console.WriteLine("______________________");
+
+        Console.WriteLine();
     }
 
     private static async Task Run_A(IServiceProvider serviceProvider)
