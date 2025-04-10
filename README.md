@@ -14,14 +14,14 @@ This mediator enables the definition of different pipelines for various request 
 
 
 ```csharp
-public sealed class RequestX : IRequest<RequestX, string>, IRequestA
+public sealed class Ping : IRequest<Ping, string>, IRequestA
 {
     // Implementation details
 }
 
-public sealed class RequestXHandler : IRequestHandler<RequestX, string>
+public sealed class PingHandler : IRequestHandler<Ping, string>
 {
-    public Task<string> Handle(RequestX request, CancellationToken cancellationToken)
+    public Task<string> Handle(Ping request, CancellationToken cancellationToken)
     {
         // ...
     }
@@ -59,47 +59,22 @@ public sealed class SpecialMiddleware<TRequest, TResponse> : IMiddleware<TReques
 
 ### Define Pipelines
 
-   Pipelines can be defined in two ways:
-
-   #### a. Using the `Pipeline` Base Class
-
-   The `Pipeline` base class accepts a request handler (`IRequestHandler`) along with pipeline middlewares (`IMiddleware`) as input parameters.
-
-   ```csharp
-   public sealed class PipelineA<TRequest, TResponse> : Pipeline<TRequest, TResponse>
-       where TRequest : IRequest<TRequest, TResponse>, IRequestA
-   {
-       public PipelineA(
-           IRequestHandler<TRequest, TResponse> handler,
-           ExceptionHandlingMiddleware<TRequest, TResponse> exceptionHandling,
-           ValidationMiddleware<TRequest, TResponse> validation)
-           : base(handler, exceptionHandling, validation)
-       { }
-   }
-   ```
-
-   Register the pipeline in Dependency Injection (DI):
-
-   ```csharp
-   services.AddScoped(typeof(IPipeline<,>), typeof(PipelineA<,>));
-   ```
-
-   #### b. Using the `KeyedPipeline` Base Class (Recommended)
-
+   Define Pipelines by using the `KeyedPipeline` Base Class.
+   
    This approach involves defining a uniquely named pipeline class along with a configuration class that implements the `IKeyedPipelineConfiguration` interface.
 
    ```csharp
-   internal sealed class PipelineB<TRequest, TResponse> : KeyedPipeline<TRequest, TResponse>
-       where TRequest : IRequest<TRequest, TResponse>, IRequestB
+   internal sealed class PipelineA<TRequest, TResponse> : KeyedPipeline<TRequest, TResponse>
+       where TRequest : IRequest<TRequest, TResponse>, IRequestA
    {
-       public PipelineB(IServiceProvider serviceProvider)
-           : base(serviceProvider, PipelineBConfiguration.PipelineName)
+       public PipelineA(IServiceProvider serviceProvider)
+           : base(serviceProvider, PipelineAConfiguration.PipelineName)
        { }
    }
 
-   internal sealed class PipelineBConfiguration : IKeyedPipelineConfiguration
+   internal sealed class PipelineAConfiguration : IKeyedPipelineConfiguration
    {
-       public static string PipelineName { get; } = "Pipeline_B";
+       public static string PipelineName { get; } = "Pipeline_A";
 
        public static Type[] Middlewares()
        {
@@ -116,15 +91,15 @@ public sealed class SpecialMiddleware<TRequest, TResponse> : IMiddleware<TReques
    Register the pipeline in DI:
 
    ```csharp
-   services.AddTransient(typeof(IPipeline<,>), typeof(PipelineB<,>));
-   services.RegisterMiddlewares<PipelineBConfiguration>();
+   services.AddTransient(typeof(IPipeline<,>), typeof(PipelineA<,>));
+   services.RegisterMiddlewares<PipelineAConfiguration>();
    ```
 ### Use IMediator to handle requests
 
 ```csharp
 private static async Task Sample(IMediator mediator, CancellationToken cancellationToken)
 {
-    var request = new RequestX() { /* ... */ };
+    var request = new Ping() { /* ... */ };
     var response = await mediator.Send(request, cancellationToken);
     // ...
 }
