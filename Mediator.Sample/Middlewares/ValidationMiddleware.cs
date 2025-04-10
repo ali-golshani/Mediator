@@ -16,6 +16,8 @@ public sealed class ValidationMiddleware<TRequest, TResponse> :
 
     public async Task<TResponse> Handle(RequestContext<TRequest> context, IRequestProcessor<TRequest, TResponse> next)
     {
+        Console.WriteLine("Middleware :: ValidationMiddleware");
+
         var validationResult = await ValidateAsync(validators, context.Request);
         var errors = validationResult.Errors;
 

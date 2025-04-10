@@ -14,6 +14,7 @@ internal sealed class RequestPipelineBConfiguration : IKeyedPipelineConfiguratio
             typeof(ExceptionHandlingMiddleware<,>),
             typeof(ValidationMiddleware<,>),
             typeof(SpecialMiddleware<,>),
+            typeof(MiddlewareB<,>),
         ];
     }
 }

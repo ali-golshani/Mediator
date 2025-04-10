@@ -19,15 +19,6 @@ internal static class PipelineBuilder
         return pipe;
     }
 
-    public static IRequestProcessor<TRequest, TResponse> EntryProcessor<TRequest, TResponse>(
-        IRequestHandler<TRequest, TResponse> handler,
-        params IMiddleware<TRequest, TResponse>[] middlewares)
-    where TRequest : IRequest<TRequest, TResponse>
-    {
-        var processor = new LastPipe<TRequest, TResponse>(handler);
-        return EntryProcessor(processor, middlewares);
-    }
-
     internal static IRequestProcessor<TRequest, TResponse> EntryProcessor<TRequest, TResponse>(
         IServiceProvider serviceProvider,
         IRequestProcessor<TRequest, TResponse> processor,

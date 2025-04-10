@@ -7,6 +7,8 @@ public sealed class ExceptionHandlingMiddleware<TRequest, TResponse> :
 {
     public async Task<TResponse> Handle(RequestContext<TRequest> context, IRequestProcessor<TRequest, TResponse> next)
     {
+        Console.WriteLine("Middleware :: ExceptionHandlingMiddleware");
+
         try
         {
             return await next.Handle(context);

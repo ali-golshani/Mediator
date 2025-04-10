@@ -1,15 +1,13 @@
 ﻿using Mediator.Middlewares;
-using Mediator.Sample.Requests;
 
 namespace Mediator.Sample.Middlewares;
 
-public sealed class SpecialMiddleware<TRequest, TResponse> :
+public sealed class MiddlewareA<TRequest, TResponse> :
     IMiddleware<TRequest, TResponse>
-    where TRequest : ISpecialRequest
 {
     public async Task<TResponse> Handle(RequestContext<TRequest> context, IRequestProcessor<TRequest, TResponse> next)
     {
-        Console.WriteLine("Middleware :: SpecialMiddleware");
+        Console.WriteLine("Middleware :: MiddlewareA");
 
         return await next.Handle(context);
     }
