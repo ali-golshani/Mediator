@@ -4,19 +4,33 @@ This mediator enables the definition of different pipelines for various request 
 
 ## Usage
 
-## Defining Requests
-To implement the `Mediator` class without relying on 'C# Reflection', define the request type as a generic argument within the `IRequest` interface.
+### **Define a Marker Interface or Base Class for Each Pipeline requests**
+
+   ```csharp
+   public interface IRequestA { }
+   ```
+   
+### Define Requests and Request Handlers
+
 
 ```csharp
-public interface IRequest<in TRequest, out TResponse> { }
-
 public sealed class RequestX : IRequest<RequestX, string>, IRequestA
 {
     // Implementation details
 }
+
+public sealed class RequestXHandler : IRequestHandler<RequestX, string>
+{
+    public Task<string> Handle(RequestX request, CancellationToken cancellationToken)
+    {
+        // ...
+    }
+}
 ```
 
-## Defining Middlewares
+The `TRequest` generic parameter in the `IRequest` interface is designed to eliminate the need for **C# Reflection** in the implementation of the `Mediator` class. This approach ensures **type safety** and significantly reduces the runtime overhead commonly associated with reflection-based solutions.
+
+### Define Middlewares
 
 Custom middleware can be created to process general or specific request types. C#'s generic type constraints (`where` keyword) can be used to enforce type restrictions.
 
@@ -43,35 +57,16 @@ public sealed class SpecialMiddleware<TRequest, TResponse> : IMiddleware<TReques
 }
 ```
 
-## Defining Pipelines
-
-1. **Define a Marker Interface or Base Class for Each Pipeline**
-
-   ```csharp
-   public interface IRequestA { }
-   ```
-
-2. **Define Pipeline**
+### Define Pipelines
 
    Pipelines can be defined in two ways:
 
-   ### a. Using the `Pipeline` Base Class
+   #### a. Using the `Pipeline` Base Class
 
    The `Pipeline` base class accepts a request handler (`IRequestHandler`) along with pipeline middlewares (`IMiddleware`) as input parameters.
 
    ```csharp
-   public abstract class Pipeline<TRequest, TResponse> : IPipeline<TRequest, TResponse>
-       where TRequest : IRequest<TRequest, TResponse>
-   {
-       protected Pipeline(
-           IRequestHandler<TRequest, TResponse> handler,
-           params IMiddleware<TRequest, TResponse>[] middlewares)
-       {
-           // Base pipeline implementation
-       }
-   }
-
-   public abstract class PipelineA<TRequest, TResponse> : Pipeline<TRequest, TResponse>
+   public sealed class PipelineA<TRequest, TResponse> : Pipeline<TRequest, TResponse>
        where TRequest : IRequest<TRequest, TResponse>, IRequestA
    {
        public PipelineA(
@@ -89,22 +84,11 @@ public sealed class SpecialMiddleware<TRequest, TResponse> : IMiddleware<TReques
    services.AddScoped(typeof(IPipeline<,>), typeof(PipelineA<,>));
    ```
 
-   ### b. Using the `KeyedPipeline` Base Class (Recommended)
+   #### b. Using the `KeyedPipeline` Base Class (Recommended)
 
    This approach involves defining a uniquely named pipeline class along with a configuration class that implements the `IKeyedPipelineConfiguration` interface.
 
    ```csharp
-   public abstract class KeyedPipeline<TRequest, TResponse> : IPipeline<TRequest, TResponse>
-       where TRequest : IRequest<TRequest, TResponse>
-   {
-       protected KeyedPipeline(IServiceProvider serviceProvider, string pipelineName)
-       { 
-            // ...
-       }
-
-       // Keyed pipeline base class implementation
-   }
-
    internal sealed class PipelineB<TRequest, TResponse> : KeyedPipeline<TRequest, TResponse>
        where TRequest : IRequest<TRequest, TResponse>, IRequestB
    {
@@ -135,3 +119,13 @@ public sealed class SpecialMiddleware<TRequest, TResponse> : IMiddleware<TReques
    services.AddTransient(typeof(IPipeline<,>), typeof(PipelineB<,>));
    services.RegisterMiddlewares<PipelineBConfiguration>();
    ```
+### Use IMediator to handle requests
+
+```csharp
+private static async Task Sample(IMediator mediator, CancellationToken cancellationToken)
+{
+    var request = new RequestX() { /* ... */ };
+    var response = await mediator.Send(request, cancellationToken);
+    // ...
+}
+```
