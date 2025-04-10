@@ -28,4 +28,13 @@ internal sealed class Mediator(IServiceProvider serviceProvider) : IMediator
         var pipeline = pipelines[0];
         return pipeline.Handle(request.AsRequestType(), cancellationToken);
     }
+
+    public Task Publish<TNotification>(TNotification notification, CancellationToken cancellationToken)
+        where TNotification : INotification
+    {
+        return
+            serviceProvider
+            .GetRequiredService<Publisher<TNotification>>()
+            .Publish(notification, cancellationToken);
+    }
 }
