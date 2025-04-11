@@ -38,7 +38,7 @@ public static class DIExtensions
                 .FromAssemblies(assemblies)
                 .AddClasses(classes => classes.AssignableTo(interfaceType))
                 .AsImplementedInterfaces()
-                .WithTransientLifetime()
+                .WithScopedLifetime()
                 ;
         });
     }

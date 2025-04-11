@@ -11,7 +11,7 @@ public static class Extensions
     {
         foreach (var type in TPipelineConfiguration.Middlewares())
         {
-            services.AddKeyedTransient(typeof(IMiddleware<,>), TPipelineConfiguration.PipelineName, type);
+            services.AddKeyedScoped(typeof(IMiddleware<,>), TPipelineConfiguration.PipelineName, type);
         }
     }
 
