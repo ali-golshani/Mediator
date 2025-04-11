@@ -14,7 +14,8 @@ internal static class Program
 
         try
         {
-            await Run(serviceProvider);
+            var mediator = serviceProvider.GetRequiredService<IMediator>();
+            await Run(mediator);
         }
         catch (Exception exp)
         {
@@ -22,41 +23,43 @@ internal static class Program
         }
 
         Console.WriteLine();
-        Console.WriteLine("Press Enter to Exit.");
+        Console.Write("Press Enter to Exit ...");
         Console.ReadLine();
     }
 
-    private static async Task Run(IServiceProvider serviceProvider)
+    private static async Task Run(IMediator mediator)
     {
-        string line = new('-', 50);
+        await Run_A(mediator);
 
-        await Run_A(serviceProvider);
+        WriteLine();
 
-        Console.WriteLine(line);
+        await Run_B(mediator);
 
-        await Run_B(serviceProvider);
+        WriteLine();
 
-        Console.WriteLine(line);
+        await Run_SA(mediator);
 
-        await Run_SA(serviceProvider);
+        WriteLine();
 
-        Console.WriteLine(line);
+        await Run_SB(mediator);
 
-        await Run_SB(serviceProvider);
+        static void WriteLine()
+        {
+            string line = new('-', 50);
+            Console.WriteLine(line);
+        }
     }
 
-    private static async Task Run_A(IServiceProvider serviceProvider)
+    private static async Task Run_A(IMediator mediator)
     {
         Console.WriteLine("RequestA");
-        var mediator = serviceProvider.GetRequiredService<IMediator>();
         var response = await mediator.Send(new Requests.RequestA.Request(), default);
         Console.WriteLine(response);
     }
 
-    private static async Task Run_B(IServiceProvider serviceProvider)
+    private static async Task Run_B(IMediator mediator)
     {
         Console.WriteLine("RequestB");
-        var mediator = serviceProvider.GetRequiredService<IMediator>();
         var response = await mediator.Send(new Requests.RequestB.Request
         {
             Number = 1020
@@ -64,18 +67,16 @@ internal static class Program
         Console.WriteLine(response);
     }
 
-    private static async Task Run_SA(IServiceProvider serviceProvider)
+    private static async Task Run_SA(IMediator mediator)
     {
         Console.WriteLine("SpecialRequestA");
-        var mediator = serviceProvider.GetRequiredService<IMediator>();
         var response = await mediator.Send(new Requests.SpecialRequestA.Request(), default);
         Console.WriteLine(response);
     }
 
-    private static async Task Run_SB(IServiceProvider serviceProvider)
+    private static async Task Run_SB(IMediator mediator)
     {
         Console.WriteLine("SpecialRequestB");
-        var mediator = serviceProvider.GetRequiredService<IMediator>();
         var response = await mediator.Send(new Requests.SpecialRequestB.Request(), default);
         Console.WriteLine(response);
     }
