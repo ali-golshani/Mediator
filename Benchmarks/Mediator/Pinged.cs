@@ -1,4 +1,4 @@
-﻿namespace Mediator.Benchmarks.Requests;
+﻿namespace Mediator;
 
 public class Pinged : INotification { }
 

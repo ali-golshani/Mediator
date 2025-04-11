@@ -1,6 +1,6 @@
-﻿namespace Mediator.Benchmarks.Requests;
+namespace MediatR;
 
-public class Ping : IRequest<Ping, int>
+public class Ping : IRequest<int>
 {
     public required string Message { get; set; }
 }

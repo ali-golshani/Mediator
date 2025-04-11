@@ -1,6 +1,6 @@
 ﻿using BenchmarkDotNet.Running;
 
-namespace Mediator.Benchmarks;
+namespace Benchmarks;
 
 internal static class Program
 {

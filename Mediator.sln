@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mediator", "Mediator\Mediat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mediator.Sample", "Mediator.Sample\Mediator.Sample.csproj", "{D466BD08-BAC4-4B11-BE97-B4E8B22C3473}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mediator.Benchmarks", "Mediator.Benchmarks\Mediator.Benchmarks.csproj", "{7DBD64C2-E177-4407-A454-2CAA86CC54C5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Benchmarks", "Benchmarks\Benchmarks.csproj", "{7DBD64C2-E177-4407-A454-2CAA86CC54C5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

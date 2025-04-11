@@ -1,4 +1,4 @@
-namespace MediatR.Benchmarks;
+namespace MediatR;
 
 public class GenericPipelineBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     where TRequest : notnull

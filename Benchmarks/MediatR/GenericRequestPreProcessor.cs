@@ -1,6 +1,6 @@
 using MediatR.Pipeline;
 
-namespace MediatR.Benchmarks;
+namespace MediatR;
 
 public class GenericRequestPreProcessor<TRequest> : IRequestPreProcessor<TRequest>
     where TRequest : notnull

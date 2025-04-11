@@ -1,10 +1,9 @@
-﻿using Mediator.Benchmarks.Extensions;
-using Mediator.Benchmarks.Pipelines;
+﻿using Mediator;
 using Mediator.Extensions;
 using Mediator.Middlewares;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Mediator.Benchmarks;
+namespace Benchmarks;
 
 public static class ServiceConfigurations
 {
@@ -16,10 +15,10 @@ public static class ServiceConfigurations
 
         services.AddMediatR(cfg =>
         {
-            cfg.RegisterServicesFromAssemblyContaining<MediatR.Benchmarks.Ping>();
-            cfg.AddOpenBehavior(typeof(MediatR.Benchmarks.GenericPipelineBehavior<,>));
-            cfg.AddOpenRequestPreProcessor(typeof(MediatR.Benchmarks.GenericRequestPreProcessor<>));
-            cfg.AddOpenRequestPostProcessor(typeof(MediatR.Benchmarks.GenericRequestPostProcessor<,>));
+            cfg.RegisterServicesFromAssemblyContaining<MediatR.Ping>();
+            cfg.AddOpenBehavior(typeof(MediatR.GenericPipelineBehavior<,>));
+            cfg.AddOpenRequestPreProcessor(typeof(MediatR.GenericRequestPreProcessor<>));
+            cfg.AddOpenRequestPostProcessor(typeof(MediatR.GenericRequestPostProcessor<,>));
         });
     }
 

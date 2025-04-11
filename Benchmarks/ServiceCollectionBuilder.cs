@@ -1,13 +1,13 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace Mediator.Benchmarks;
+namespace Benchmarks;
 
 public static class ServiceCollectionBuilder
 {
     public static IServiceCollection Build()
     {
         var services = new ServiceCollection();
-        global::Mediator.ServiceConfigurations.AddMediator(services);
+        Mediator.ServiceConfigurations.AddMediator(services);
         ServiceConfigurations.RegisterServices(services);
         return services;
     }

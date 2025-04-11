@@ -1,6 +1,6 @@
 ﻿using Mediator.Middlewares;
 
-namespace Mediator.Benchmarks.Middlewares;
+namespace Mediator;
 
 public class GenericRequestPostProcessor<TRequest, TResponse>(TextWriter writer) : IMiddleware<TRequest, TResponse>
     where TRequest : notnull

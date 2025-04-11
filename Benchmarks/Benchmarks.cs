@@ -1,8 +1,8 @@
 ﻿using BenchmarkDotNet.Attributes;
-using Mediator.Benchmarks.Requests;
+using Mediator;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Mediator.Benchmarks;
+namespace Benchmarks;
 
 [MemoryDiagnoser]
 public class Benchmarks
@@ -12,8 +12,8 @@ public class Benchmarks
     private readonly Pinged notification = new();
 
     private MediatR.IMediator mrMediator = null!;
-    private readonly MediatR.Benchmarks.Ping mrRequest = new() { Message = "Hello World" };
-    private readonly MediatR.Benchmarks.Pinged mrNotification = new();
+    private readonly MediatR.Ping mrRequest = new() { Message = "Hello World" };
+    private readonly MediatR.Pinged mrNotification = new();
 
     [GlobalSetup]
     public void GlobalSetup()

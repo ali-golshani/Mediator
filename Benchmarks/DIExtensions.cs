@@ -1,7 +1,8 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Mediator;
+using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
-namespace Mediator.Benchmarks.Extensions;
+namespace Benchmarks;
 
 public static class DIExtensions
 {
