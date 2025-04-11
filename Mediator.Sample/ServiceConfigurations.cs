@@ -17,10 +17,10 @@ public static class ServiceConfigurations
 
     private static void RegisterPipelines(this IServiceCollection services)
     {
-        services.AddTransient(typeof(IPipeline<,>), typeof(RequestPipelineA<,>));
-        services.RegisterMiddlewares<RequestPipelineAConfiguration>();
+        services.AddTransient(typeof(IPipeline<,>), typeof(PipelineA<,>));
+        services.RegisterMiddlewares<PipelineAConfiguration>();
 
-        services.AddTransient(typeof(IPipeline<,>), typeof(RequestPipelineB<,>));
-        services.RegisterMiddlewares<RequestPipelineBConfiguration>();
+        services.AddTransient(typeof(IPipeline<,>), typeof(PipelineB<,>));
+        services.RegisterMiddlewares<PipelineBConfiguration>();
     }
 }

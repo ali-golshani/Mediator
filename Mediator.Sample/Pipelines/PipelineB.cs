@@ -3,11 +3,11 @@ using Mediator.Sample.Requests;
 
 namespace Mediator.Sample.Pipelines;
 
-internal sealed class RequestPipelineB<TRequest, TResponse> :
+internal sealed class PipelineB<TRequest, TResponse> :
     KeyedPipeline<TRequest, TResponse>
     where TRequest : IRequest<TRequest, TResponse>, IRequestB
 {
-    public RequestPipelineB(IServiceProvider serviceProvider)
-        : base(serviceProvider, RequestPipelineBConfiguration.PipelineName)
+    public PipelineB(IServiceProvider serviceProvider)
+        : base(serviceProvider, PipelineBConfiguration.PipelineName)
     { }
 }

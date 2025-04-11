@@ -3,7 +3,7 @@ using Mediator.Sample.Middlewares;
 
 namespace Mediator.Sample.Pipelines;
 
-internal sealed class RequestPipelineBConfiguration : IKeyedPipelineConfiguration
+internal sealed class PipelineBConfiguration : IKeyedPipelineConfiguration
 {
     public static string PipelineName { get; } = "Pipeline_B";
 
