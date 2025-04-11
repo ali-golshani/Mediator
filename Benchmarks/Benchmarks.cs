@@ -26,25 +26,25 @@ public class Benchmarks
     }
 
     [Benchmark]
-    public Task SendingRequests()
+    public Task Mediator_Send()
     {
         return mediator.Send(request, default);
     }
 
     [Benchmark]
-    public Task PublishingNotifications()
+    public Task Mediator_Publish()
     {
         return mediator.Publish(notification, default);
     }
 
     [Benchmark]
-    public Task MR_SendingRequests()
+    public Task MediatR_Send()
     {
         return mrMediator.Send(mrRequest);
     }
 
     [Benchmark]
-    public Task MR_PublishingNotifications()
+    public Task MediatR_Publish()
     {
         return mrMediator.Publish(mrNotification);
     }
