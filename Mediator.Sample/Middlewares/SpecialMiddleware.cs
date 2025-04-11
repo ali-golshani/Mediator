@@ -3,8 +3,7 @@ using Mediator.Sample.Requests;
 
 namespace Mediator.Sample.Middlewares;
 
-public sealed class SpecialMiddleware<TRequest, TResponse> :
-    IMiddleware<TRequest, TResponse>
+public sealed class SpecialMiddleware<TRequest, TResponse> : IMiddleware<TRequest, TResponse>
     where TRequest : ISpecialRequest
 {
     public async Task<TResponse> Handle(RequestContext<TRequest> context, IRequestProcessor<TRequest, TResponse> next)

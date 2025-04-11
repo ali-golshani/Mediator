@@ -53,14 +53,14 @@ internal static class Program
     private static async Task Run_A(IMediator mediator)
     {
         Console.WriteLine("RequestA");
-        var response = await mediator.Send(new Requests.RequestA.Request(), default);
+        var response = await mediator.Send(new Requests.RequestA(), default);
         Console.WriteLine(response);
     }
 
     private static async Task Run_B(IMediator mediator)
     {
         Console.WriteLine("RequestB");
-        var response = await mediator.Send(new Requests.RequestB.Request
+        var response = await mediator.Send(new Requests.RequestB
         {
             Number = 1020
         }, default);
@@ -70,14 +70,14 @@ internal static class Program
     private static async Task Run_SA(IMediator mediator)
     {
         Console.WriteLine("SpecialRequestA");
-        var response = await mediator.Send(new Requests.SpecialRequestA.Request(), default);
+        var response = await mediator.Send(new Requests.SpecialRequestA(), default);
         Console.WriteLine(response);
     }
 
     private static async Task Run_SB(IMediator mediator)
     {
         Console.WriteLine("SpecialRequestB");
-        var response = await mediator.Send(new Requests.SpecialRequestB.Request(), default);
+        var response = await mediator.Send(new Requests.SpecialRequestB(), default);
         Console.WriteLine(response);
     }
 }

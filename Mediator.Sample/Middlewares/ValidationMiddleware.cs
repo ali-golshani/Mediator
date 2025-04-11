@@ -4,8 +4,7 @@ using Mediator.Middlewares;
 
 namespace Mediator.Sample.Middlewares;
 
-public sealed class ValidationMiddleware<TRequest, TResponse> :
-    IMiddleware<TRequest, TResponse>
+public sealed class ValidationMiddleware<TRequest, TResponse> : IMiddleware<TRequest, TResponse>
 {
     private readonly IValidator<TRequest>[] validators;
 
