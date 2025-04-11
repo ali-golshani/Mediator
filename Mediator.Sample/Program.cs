@@ -29,55 +29,24 @@ internal static class Program
 
     private static async Task Run(IMediator mediator)
     {
-        await Run_A(mediator);
+        await Send(mediator, new Requests.RequestA());
+        await Send(mediator, new Requests.RequestB { Number = 1020 });
+        await Send(mediator, new Requests.SpecialRequestA());
+        await Send(mediator, new Requests.SpecialRequestB());
 
+    }
+
+    private static async Task Send<T>(IMediator mediator, T request)
+        where T : IRequest<T, string>
+    {
+        Console.WriteLine(request.GetType().Name);
+        var response = await mediator.Send(request, default);
+        Console.WriteLine(response);
         WriteLine();
-
-        await Run_B(mediator);
-
-        WriteLine();
-
-        await Run_SA(mediator);
-
-        WriteLine();
-
-        await Run_SB(mediator);
-
-        static void WriteLine()
-        {
-            string line = new('-', 50);
-            Console.WriteLine(line);
-        }
     }
 
-    private static async Task Run_A(IMediator mediator)
+    private static void WriteLine()
     {
-        Console.WriteLine("RequestA");
-        var response = await mediator.Send(new Requests.RequestA(), default);
-        Console.WriteLine(response);
-    }
-
-    private static async Task Run_B(IMediator mediator)
-    {
-        Console.WriteLine("RequestB");
-        var response = await mediator.Send(new Requests.RequestB
-        {
-            Number = 1020
-        }, default);
-        Console.WriteLine(response);
-    }
-
-    private static async Task Run_SA(IMediator mediator)
-    {
-        Console.WriteLine("SpecialRequestA");
-        var response = await mediator.Send(new Requests.SpecialRequestA(), default);
-        Console.WriteLine(response);
-    }
-
-    private static async Task Run_SB(IMediator mediator)
-    {
-        Console.WriteLine("SpecialRequestB");
-        var response = await mediator.Send(new Requests.SpecialRequestB(), default);
-        Console.WriteLine(response);
+        Console.WriteLine(new string('-', 50));
     }
 }
