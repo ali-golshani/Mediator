@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Mediator.Sample;
 
-public static class ServiceCollectionBuilder
+internal static class ServiceCollectionBuilder
 {
     public static IServiceCollection Build()
     {

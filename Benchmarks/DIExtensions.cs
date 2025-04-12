@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace Benchmarks;
 
-public static class DIExtensions
+internal static class DIExtensions
 {
     public static void RegisterRequestHandlers(this IServiceCollection services)
     {

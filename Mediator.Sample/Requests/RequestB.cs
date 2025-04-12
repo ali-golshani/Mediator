@@ -15,7 +15,7 @@ internal sealed class RequestBValidator : AbstractValidator<RequestB>
     }
 }
 
-public sealed class RequestBHandler : IRequestHandler<RequestB, string>
+internal sealed class RequestBHandler : IRequestHandler<RequestB, string>
 {
     public Task<string> Handle(RequestB request, CancellationToken cancellationToken)
     {

@@ -2,8 +2,7 @@
 
 namespace Mediator;
 
-public class GenericPipelineBehavior<TRequest, TResponse>(TextWriter writer) : IMiddleware<TRequest, TResponse>
-    where TRequest : notnull
+internal class GenericPipelineBehavior<TRequest, TResponse>(TextWriter writer) : IMiddleware<TRequest, TResponse>
 {
     public async Task<TResponse> Handle(RequestContext<TRequest> context, IRequestProcessor<TRequest, TResponse> next)
     {

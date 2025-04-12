@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Benchmarks;
 
-public static class ServiceCollectionBuilder
+internal static class ServiceCollectionBuilder
 {
     public static IServiceCollection Build()
     {

@@ -3,7 +3,7 @@
 public sealed class RequestA : IRequest<RequestA, string>, IRequestA
 { }
 
-public sealed class RequestAHandler : IRequestHandler<RequestA, string>
+internal sealed class RequestAHandler : IRequestHandler<RequestA, string>
 {
     public Task<string> Handle(RequestA request, CancellationToken cancellationToken)
     {
