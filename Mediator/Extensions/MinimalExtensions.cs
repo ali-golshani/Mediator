@@ -15,9 +15,8 @@ public static class MinimalExtensions
 
     public static void AddMediatorHandlers(this IServiceCollection services, Assembly assembly)
     {
-        IEnumerable<Type> assemblyTypes = assembly.DefinedTypes;
-        RegisterHelpers.RegisterClassesFromAssemblyAndType(services, typeof(IRequestHandler<,>), assemblyTypes, false, false, ServiceLifetime.Scoped);
-        RegisterHelpers.RegisterClassesFromAssemblyAndType(services, typeof(INotificationHandler<>), assemblyTypes, true, true, ServiceLifetime.Scoped);
+        RegisterHelpers.RegisterAsImplementedInterfaces(services, assembly, typeof(IRequestHandler<,>), ServiceLifetime.Scoped);
+        RegisterHelpers.RegisterAsImplementedInterfaces(services, assembly, typeof(INotificationHandler<>), ServiceLifetime.Scoped);
     }
 
     public static void AddKeyedPipeline<TPipelineConfiguration>(this IServiceCollection services, Type pipelineType)
