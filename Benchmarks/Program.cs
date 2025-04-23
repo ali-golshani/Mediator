@@ -7,9 +7,10 @@ internal static class Program
     static void Main()
     {
         Console.WriteLine("Select Benchmark:");
-        Console.WriteLine("1. Send Benchmark");
-        Console.WriteLine("2. Publish Benchmark");
-        Console.Write("Select: ");
+        Console.WriteLine("1. Send");
+        Console.WriteLine("2. Publish");
+        Console.WriteLine();
+        Console.Write("Select (1|2): ");
 
         var key = Console.ReadKey();
         Console.WriteLine();
@@ -18,14 +19,9 @@ internal static class Program
         {
             BenchmarkRunner.Run<SendBenchmarks>();
         }
-        if (key.Key == ConsoleKey.D2 || key.Key == ConsoleKey.NumPad2)
+        else if (key.Key == ConsoleKey.D2 || key.Key == ConsoleKey.NumPad2)
         {
             BenchmarkRunner.Run<PublishBenchmarks>();
-        }
-        else
-        {
-            Console.WriteLine();
-            Console.WriteLine("Invalid Input");
         }
 
         Console.WriteLine();
