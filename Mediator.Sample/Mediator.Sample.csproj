@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>Minimal.Mediator.Sample</RootNamespace>
+    <AssemblyName>Minimal.Mediator.Sample</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+	  <PackageReference Include="Scrutor" Version="5.0.2" />
+	  <PackageReference Include="FluentValidation" Version="11.11.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Mediator\Mediator.csproj" />
+  </ItemGroup>
+
+</Project>
