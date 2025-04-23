@@ -6,7 +6,7 @@ internal static class Program
 {
     static void Main()
     {
-        BenchmarkRunner.Run<Benchmarks>();
+        BenchmarkRunner.Run<SendBenchmarks>();
         Console.ReadLine();
     }
 }
