@@ -15,9 +15,7 @@ internal static class ServiceCollectionBuilder
     {
         services.AddSingleton(TextWriter.Null);
 
-        MinimalExtensions.AddMediator(services);
-        services.RegisterRequestHandlers();
-        services.RegisterPipelines();
+        services.AddMinimalMediator();
 
         services.AddMediatR(cfg =>
         {
@@ -38,9 +36,10 @@ internal static class ServiceCollectionBuilder
         services.AddSingleton(typeof(Mediator.IPipelineBehavior<,>), typeof(Mediator.GenericRequestPostProcessor<,>));
     }
 
-    private static void RegisterPipelines(this IServiceCollection services)
+    private static void AddMinimalMediator(this IServiceCollection services)
     {
-        services.AddScoped(typeof(Minimal.Mediator.Middlewares.IPipeline<,>), typeof(Minimal.Mediator.Pipeline<,>));
-        services.AddMiddlewares<Minimal.Mediator.PipelineConfiguration>();
+        MinimalExtensions.AddMediator(services);
+        services.AddKeyedPipeline<Minimal.Mediator.PipelineConfiguration>(typeof(Minimal.Mediator.Pipeline<,>));
+        services.AddMediatorHandlers(typeof(Program).Assembly);
     }
 }

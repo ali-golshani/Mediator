@@ -5,17 +5,6 @@ namespace Minimal.Mediator.Sample.Extensions;
 
 public static class DIExtensions
 {
-    public static void RegisterRequestHandlers(this IServiceCollection services)
-    {
-        var assembly = Assembly.GetCallingAssembly();
-        services.RegisterRequestHandlers(assembly);
-    }
-
-    public static void RegisterRequestHandlers(this IServiceCollection services, params Assembly[] assemblies)
-    {
-        services.RegisterAsImplementedInterfaces(typeof(IRequestHandler<,>), assemblies);
-    }
-
     public static void RegisterValidators(this IServiceCollection services)
     {
         var assembly = Assembly.GetCallingAssembly();

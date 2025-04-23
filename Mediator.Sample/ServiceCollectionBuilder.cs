@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Minimal.Mediator.Middlewares;
 using Minimal.Mediator.Sample.Extensions;
 using Minimal.Mediator.Sample.Pipelines;
 
@@ -18,16 +17,18 @@ internal static class ServiceCollectionBuilder
     {
         services.AddMediator();
         services.RegisterRequestHandlers();
-        services.RegisterValidators();
         services.RegisterPipelines();
+        services.RegisterValidators();
+    }
+
+    private static void RegisterRequestHandlers(this IServiceCollection services)
+    {
+        services.AddMediatorHandlers(typeof(Program).Assembly);
     }
 
     private static void RegisterPipelines(this IServiceCollection services)
     {
-        services.AddTransient(typeof(IPipeline<,>), typeof(PipelineA<,>));
-        services.AddMiddlewares<PipelineAConfiguration>();
-
-        services.AddTransient(typeof(IPipeline<,>), typeof(PipelineB<,>));
-        services.AddMiddlewares<PipelineBConfiguration>();
+        services.AddKeyedPipeline<PipelineAConfiguration>(typeof(PipelineA<,>));
+        services.AddKeyedPipeline<PipelineBConfiguration>(typeof(PipelineB<,>));
     }
 }
