@@ -91,8 +91,7 @@ public sealed class SpecialMiddleware<TRequest, TResponse> : IMiddleware<TReques
    Register the pipeline in DI:
 
    ```csharp
-   services.AddTransient(typeof(IPipeline<,>), typeof(PipelineA<,>));
-   services.AddMiddlewares<PipelineAConfiguration>();
+   services.AddKeyedPipeline<PipelineAConfiguration>(typeof(PipelineA<,>));
    ```
 ### Use IMediator to handle requests
 
