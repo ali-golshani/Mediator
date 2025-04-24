@@ -6,6 +6,12 @@ internal static class Program
 {
     static void Main()
     {
+        Benchmark();
+        Exit();
+    }
+
+    private static void Benchmark()
+    {
         Console.WriteLine("Select Benchmark:");
         Console.WriteLine("1. Send");
         Console.WriteLine("2. Publish");
@@ -23,7 +29,10 @@ internal static class Program
         {
             BenchmarkRunner.Run<PublishBenchmarks>();
         }
+    }
 
+    private static void Exit()
+    {
         Console.WriteLine();
         Console.Write("Press Enter to Exit .");
         Console.ReadLine();
