@@ -16,19 +16,10 @@ internal static class ServiceCollectionBuilder
     private static void RegisterServices(IServiceCollection services)
     {
         services.AddMediator();
-        services.RegisterRequestHandlers();
-        services.RegisterPipelines();
-        services.RegisterValidators();
-    }
-
-    private static void RegisterRequestHandlers(this IServiceCollection services)
-    {
         services.AddRequestHandlers(typeof(Program).Assembly);
-    }
-
-    private static void RegisterPipelines(this IServiceCollection services)
-    {
         services.AddKeyedPipeline<PipelineAConfiguration>(typeof(PipelineA<,>));
         services.AddKeyedPipeline<PipelineBConfiguration>(typeof(PipelineB<,>));
+
+        services.RegisterValidators();
     }
 }
