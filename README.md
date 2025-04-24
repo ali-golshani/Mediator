@@ -4,6 +4,12 @@ This mediator enables the definition of different pipelines for various request 
 
 ## Usage
 
+### NuGet Package
+
+   ```
+   dotnet add package Minimal.Mediator
+   ```
+
 ### **Define a marker interface or base class for each pipeline requests**
 
    ```csharp
