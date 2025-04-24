@@ -7,6 +7,6 @@ internal sealed class SpecialRequestBHandler : IRequestHandler<SpecialRequestB, 
 {
     public Task<string> Handle(SpecialRequestB request, CancellationToken cancellationToken)
     {
-        return Task.FromResult("Special Request B");
+        return Task.FromResult("Special Request B Handler");
     }
 }

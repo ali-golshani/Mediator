@@ -7,6 +7,6 @@ internal sealed class RequestAHandler : IRequestHandler<RequestA, string>
 {
     public Task<string> Handle(RequestA request, CancellationToken cancellationToken)
     {
-        return Task.FromResult("Request A");
+        return Task.FromResult("Request A Handler");
     }
 }
