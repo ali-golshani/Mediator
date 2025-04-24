@@ -15,11 +15,13 @@ internal static class ServiceCollectionBuilder
 
     private static void RegisterServices(IServiceCollection services)
     {
+        var assembly = typeof(Program).Assembly;
+
         services.AddMediator();
-        services.AddRequestHandlers(typeof(Program).Assembly);
+        services.AddRequestHandlers(assembly);
         services.AddKeyedPipeline<PipelineAConfiguration>(typeof(PipelineA<,>));
         services.AddKeyedPipeline<PipelineBConfiguration>(typeof(PipelineB<,>));
 
-        services.RegisterValidators();
+        services.RegisterValidators(assembly);
     }
 }

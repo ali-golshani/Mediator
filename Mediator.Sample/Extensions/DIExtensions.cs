@@ -5,12 +5,6 @@ namespace Minimal.Mediator.Sample.Extensions;
 
 public static class DIExtensions
 {
-    public static void RegisterValidators(this IServiceCollection services)
-    {
-        var assembly = Assembly.GetCallingAssembly();
-        services.RegisterValidators(assembly);
-    }
-
     public static void RegisterValidators(this IServiceCollection services, params Assembly[] assemblies)
     {
         services.RegisterAsImplementedInterfaces(typeof(FluentValidation.IValidator<>), assemblies);
