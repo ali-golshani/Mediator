@@ -15,10 +15,15 @@
     <PackageId></PackageId>
     <RootNamespace>Minimal.Mediator</RootNamespace>
     <AssemblyName>Minimal.Mediator</AssemblyName>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
     <None Include="..\M.jpg">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\README.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
