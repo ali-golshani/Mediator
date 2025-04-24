@@ -2,13 +2,12 @@
 
 This mediator enables the definition of different pipelines for various request types, allowing for greater flexibility and control.
 
-## Usage
-
 ### NuGet Package
 
    ```
    dotnet add package Minimal.Mediator
    ```
+## Usage
 
 ### **Define a marker interface or base class for each pipeline requests**
 
@@ -94,9 +93,19 @@ public sealed class SpecialMiddleware<TRequest, TResponse> : IMiddleware<TReques
    }
    ```
 
-   Register the pipeline in DI:
+### Register in DI
 
    ```csharp
+   /// Register Mediator
+   services.AddMediator();
+   
+   ///Register Request-Handlers
+   services.AddRequestHandlers(assembly);
+   
+   ///Register Notification-Handlers
+   services.AddNotificationHandlers(assembly);
+
+   ///Register Pipeline
    services.AddKeyedPipeline<PipelineAConfiguration>(typeof(PipelineA<,>));
    ```
 ### Use IMediator to handle requests
