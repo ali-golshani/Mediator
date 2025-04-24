@@ -13,9 +13,13 @@ public static class MinimalExtensions
         services.AddScoped<IMediator, Mediator>();
     }
 
-    public static void AddMediatorHandlers(this IServiceCollection services, Assembly assembly)
+    public static void AddRequestHandlers(this IServiceCollection services, Assembly assembly)
     {
         RegisterHelpers.RegisterAsImplementedInterfaces(services, assembly, typeof(IRequestHandler<,>), ServiceLifetime.Scoped);
+    }
+
+    public static void AddNotificationHandlers(this IServiceCollection services, Assembly assembly)
+    {
         RegisterHelpers.RegisterAsImplementedInterfaces(services, assembly, typeof(INotificationHandler<>), ServiceLifetime.Scoped);
     }
 

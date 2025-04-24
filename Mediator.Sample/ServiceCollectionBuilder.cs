@@ -23,7 +23,7 @@ internal static class ServiceCollectionBuilder
 
     private static void RegisterRequestHandlers(this IServiceCollection services)
     {
-        services.AddMediatorHandlers(typeof(Program).Assembly);
+        services.AddRequestHandlers(typeof(Program).Assembly);
     }
 
     private static void RegisterPipelines(this IServiceCollection services)
