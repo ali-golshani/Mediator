@@ -1,15 +1,10 @@
 ﻿namespace Minimal.Mediator.Middlewares.Pipes;
 
-internal sealed class LastPipe<TRequest, TResponse> :
-    IRequestProcessor<TRequest, TResponse>
+internal sealed class LastPipe<TRequest, TResponse>(IRequestHandler<TRequest, TResponse> handler)
+    : IRequestProcessor<TRequest, TResponse>
     where TRequest : IRequest<TRequest, TResponse>
 {
-    private readonly IRequestHandler<TRequest, TResponse> handler;
-
-    public LastPipe(IRequestHandler<TRequest, TResponse> handler)
-    {
-        this.handler = handler;
-    }
+    private readonly IRequestHandler<TRequest, TResponse> handler = handler;
 
     public Task<TResponse> Handle(RequestContext<TRequest> context)
     {
