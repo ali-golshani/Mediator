@@ -118,3 +118,6 @@ private static async Task Sample(IMediator mediator, CancellationToken cancellat
     // ...
 }
 ```
+
+Please refer to the sample project for more details.
+
