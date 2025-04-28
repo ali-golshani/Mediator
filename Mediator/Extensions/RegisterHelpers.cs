@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 
 namespace Minimal.Mediator.Extensions;
@@ -11,27 +12,15 @@ internal static class RegisterHelpers
         Type openGenericType,
         ServiceLifetime serviceLifetime)
     {
+        Console.WriteLine(new string('*', 80));
         var implementations = Scan(assembly, openGenericType);
         foreach (var (serviceType, implementationType) in implementations)
         {
-            Register(services, serviceType, implementationType, serviceLifetime);
+            var descriptor = new ServiceDescriptor(serviceType, implementationType, serviceLifetime);
+            Console.WriteLine(descriptor);
+            services.Add(descriptor);
         }
-    }
-
-    private static void Register(IServiceCollection services, Type serviceType, Type implementationType, ServiceLifetime serviceLifetime)
-    {
-        switch (serviceLifetime)
-        {
-            case ServiceLifetime.Singleton:
-                services.AddSingleton(serviceType, implementationType);
-                break;
-            case ServiceLifetime.Scoped:
-                services.AddScoped(serviceType, implementationType);
-                break;
-            case ServiceLifetime.Transient:
-                services.AddTransient(serviceType, implementationType);
-                break;
-        }
+        Console.WriteLine(new string('*', 80));
     }
 
     private static IEnumerable<(Type ServiceType, Type ImplementationType)> Scan(Assembly assembly, Type openGenericType)

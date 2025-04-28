@@ -7,6 +7,8 @@
     <Nullable>enable</Nullable>
     <RootNamespace>Minimal.Mediator.Sample</RootNamespace>
     <AssemblyName>Minimal.Mediator.Sample</AssemblyName>
+    <PublishAot>true</PublishAot>
+    <InvariantGlobalization>true</InvariantGlobalization>
   </PropertyGroup>
 
   <ItemGroup>

@@ -14,7 +14,7 @@ internal sealed class PipelineConfiguration : IKeyedPipelineConfiguration
 {
     public static string PipelineName { get; } = "Pipeline";
 
-    public static Type[] Middlewares()
+    public static MiddlewareDescriptor[] Middlewares()
     {
         return
         [
