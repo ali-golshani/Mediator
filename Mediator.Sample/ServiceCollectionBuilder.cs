@@ -3,8 +3,15 @@ using Minimal.Mediator.Sample.Extensions;
 using Minimal.Mediator.Sample.Pipelines;
 using Minimal.Mediator.Sample.Requests;
 using System.Diagnostics.CodeAnalysis;
+using ServiceScan.SourceGenerator;
 
 namespace Minimal.Mediator.Sample;
+
+public static partial class ServicesExtensions
+{
+    [GenerateServiceRegistrations(AssignableTo = typeof(IRequestHandler<,>), Lifetime = ServiceLifetime.Scoped)]
+    public static partial IServiceCollection AddRHs(this IServiceCollection services);
+}
 
 internal static class ServiceCollectionBuilder
 {
@@ -27,10 +34,12 @@ internal static class ServiceCollectionBuilder
         services.AddKeyedPipeline<PipelineAConfiguration>(typeof(PipelineA<,>));
         services.AddKeyedPipeline<PipelineBConfiguration>(typeof(PipelineB<,>));
 
-        services.AddScoped<IRequestHandler<RequestA, string>, RequestAHandler>();
-        services.AddScoped<IRequestHandler<RequestB, string>, RequestBHandler>();
-        services.AddScoped<IRequestHandler<SpecialRequestA, string>, SpecialRequestAHandler>();
-        services.AddScoped<IRequestHandler<SpecialRequestB, string>, SpecialRequestBHandler>();
+        services.AddRHs();
+
+        //services.AddScoped<IRequestHandler<RequestA, string>, RequestAHandler>();
+        //services.AddScoped<IRequestHandler<RequestB, string>, RequestBHandler>();
+        //services.AddScoped<IRequestHandler<SpecialRequestA, string>, SpecialRequestAHandler>();
+        //services.AddScoped<IRequestHandler<SpecialRequestB, string>, SpecialRequestBHandler>();
 
         services.RegisterValidators(assembly);
     }
