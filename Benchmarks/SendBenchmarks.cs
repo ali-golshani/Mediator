@@ -9,19 +9,19 @@ public class SendBenchmarks : BenchmarksBase
     private readonly Minimal.Mediator.Ping miRequest = new() { Message = "Hello World" };
     private readonly MediatR.Ping mrRequest = new() { Message = "Hello World" };
 
-    [Benchmark(Description = "Send Mediator")]
+    [Benchmark(Description = "Mediator (Source-Generator)")]
     public async Task Mediator_Send()
     {
         await mMediator.Send(mRequest, default);
     }
 
-    [Benchmark(Description = "Send Minimal ")]
+    [Benchmark(Description = "Minimal Mediator")]
     public Task Minimal_Send()
     {
         return miMediator.Send(miRequest, default);
     }
 
-    [Benchmark(Description = "Send MediatR ")]
+    [Benchmark(Description = "MediatR")]
     public Task MediatR_Send()
     {
         return mrMediator.Send(mrRequest);

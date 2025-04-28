@@ -7,5 +7,5 @@ internal class Ping : IRequest<Ping, int>
 
 internal class PingHandler : IRequestHandler<Ping, int>
 {
-    public Task<int> Handle(Ping request, CancellationToken cancellationToken) => Task.FromResult(0);
+    public Task<int> Handle(Ping request, CancellationToken cancellationToken) => Task.FromResult(request.Message.Length);
 }
