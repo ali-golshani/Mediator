@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Minimal.Mediator.Sample.Pipelines;
+using ServiceScan;
 
 namespace Minimal.Mediator.Sample;
 
