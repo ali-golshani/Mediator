@@ -18,9 +18,9 @@ internal sealed class PipelineConfiguration : IKeyedPipelineConfiguration
     {
         return
         [
-            typeof(GenericRequestPreProcessor<,>),
-            typeof(GenericPipelineBehavior<,>),
-            typeof(GenericRequestPostProcessor<,>),
+            new MiddlewareDescriptor(typeof(GenericRequestPreProcessor<,>)),
+            new MiddlewareDescriptor(typeof(GenericPipelineBehavior<,>)),
+            new MiddlewareDescriptor(typeof(GenericRequestPostProcessor<,>)),
         ];
     }
 }

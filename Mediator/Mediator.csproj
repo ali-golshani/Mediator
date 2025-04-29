@@ -12,7 +12,6 @@
     <PackageProjectUrl>https://github.com/ali-golshani/Mediator</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <LangVersion>latest</LangVersion>
-    <PackageId></PackageId>
     <RootNamespace>Minimal.Mediator</RootNamespace>
     <AssemblyName>Minimal.Mediator</AssemblyName>
     <PackageReadmeFile>README.md</PackageReadmeFile>

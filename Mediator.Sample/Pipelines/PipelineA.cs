@@ -1,12 +1,30 @@
 ﻿using Minimal.Mediator.Middlewares;
+using Minimal.Mediator.Sample.Middlewares;
 using Minimal.Mediator.Sample.Requests;
 
 namespace Minimal.Mediator.Sample.Pipelines;
 
-internal sealed class PipelineA<TRequest, TResponse> : KeyedPipeline<TRequest, TResponse>
-    where TRequest : IRequest<TRequest, TResponse>, IRequestA
+internal static class PipelineA
 {
-    public PipelineA(IServiceProvider serviceProvider)
-        : base(serviceProvider, PipelineAConfiguration.PipelineName)
-    { }
+    internal sealed class Pipeline<TRequest, TResponse> : KeyedPipeline<TRequest, TResponse>
+        where TRequest : IRequest<TRequest, TResponse>, IRequestA
+    {
+        public Pipeline(IServiceProvider serviceProvider)
+            : base(serviceProvider, Configuration.PipelineName)
+        { }
+    }
+
+    internal sealed class Configuration : IKeyedPipelineConfiguration
+    {
+        public static string PipelineName { get; } = "Pipeline_A";
+
+        public static MiddlewareDescriptor[] Middlewares()
+        {
+            return
+            [
+                new MiddlewareDescriptor(typeof(ExceptionHandlingMiddleware<,>)),
+                new MiddlewareDescriptor(typeof(MiddlewareA<,>)),
+            ];
+        }
+    }
 }

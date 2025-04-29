@@ -16,8 +16,8 @@ internal static class ServiceCollectionBuilder
     {
         services.AddMediator();
         services.AddRequestHandlers();
-        services.AddKeyedPipeline<PipelineAConfiguration>(typeof(PipelineA<,>));
-        services.AddKeyedPipeline<PipelineBConfiguration>(typeof(PipelineB<,>));
+        services.AddKeyedPipeline<PipelineA.Configuration>(typeof(PipelineA.Pipeline<,>));
+        services.AddKeyedPipeline<PipelineB.Configuration>(typeof(PipelineB.Pipeline<,>));
 
         services.AddValidators();
     }
