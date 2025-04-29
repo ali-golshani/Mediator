@@ -13,15 +13,12 @@ internal static class RegisterHelpers
         Type openGenericType,
         ServiceLifetime serviceLifetime)
     {
-        Console.WriteLine(new string('*', 80));
         var implementations = Scan(assembly, openGenericType);
         foreach (var (serviceType, implementationType) in implementations)
         {
             var descriptor = new ServiceDescriptor(serviceType, implementationType, serviceLifetime);
-            Console.WriteLine(descriptor);
             services.Add(descriptor);
         }
-        Console.WriteLine(new string('*', 80));
     }
 
     [RequiresUnreferencedCode("Calls System.Reflection.Assembly.GetTypes()")]
