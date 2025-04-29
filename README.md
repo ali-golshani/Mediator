@@ -69,28 +69,33 @@ public sealed class SpecialMiddleware<TRequest, TResponse> : IMiddleware<TReques
    This approach involves defining a uniquely named pipeline class along with a configuration class that implements the `IKeyedPipelineConfiguration` interface.
 
    ```csharp
-   internal sealed class PipelineA<TRequest, TResponse> : KeyedPipeline<TRequest, TResponse>
-       where TRequest : IRequest<TRequest, TResponse>, IRequestA
-   {
-       public PipelineA(IServiceProvider serviceProvider)
-           : base(serviceProvider, PipelineAConfiguration.PipelineName)
-       { }
-   }
 
-   internal sealed class PipelineAConfiguration : IKeyedPipelineConfiguration
+   internal static class PipelineA
    {
-       public static string PipelineName { get; } = "Pipeline_A";
-
-       public static Type[] Middlewares()
+       internal sealed class Pipeline<TRequest, TResponse> : KeyedPipeline<TRequest, TResponse>
+           where TRequest : IRequest<TRequest, TResponse>, IRequestA
        {
-           return
-           [
-               typeof(ExceptionHandlingMiddleware<,>),
-               typeof(ValidationMiddleware<,>),
-               typeof(SpecialMiddleware<,>),
-           ];
+           public Pipeline(IServiceProvider serviceProvider)
+               : base(serviceProvider, Configuration.PipelineName)
+           { }
+       }
+   
+       internal sealed class Configuration : IKeyedPipelineConfiguration
+       {
+           public static string PipelineName { get; } = "Pipeline_A";
+   
+           public static MiddlewareDescriptor[] Middlewares()
+           {
+               return
+               [
+                   new MiddlewareDescriptor(typeof(ExceptionHandlingMiddleware<,>)),
+                   new MiddlewareDescriptor(typeof(ValidationMiddleware<,>)),
+                   new MiddlewareDescriptor(typeof(SpecialMiddleware<,>)),
+               ];
+           }
        }
    }
+
    ```
 
 ### Register in DI
@@ -98,16 +103,12 @@ public sealed class SpecialMiddleware<TRequest, TResponse> : IMiddleware<TReques
    ```csharp
    /// Register Mediator
    services.AddMediator();
-   
-   ///Register Request-Handlers
-   services.AddRequestHandlers(assembly);
-   
-   ///Register Notification-Handlers
-   services.AddNotificationHandlers(assembly);
 
    ///Register Pipeline
-   services.AddKeyedPipeline<PipelineAConfiguration>(typeof(PipelineA<,>));
+   services.AddKeyedPipeline<PipelineA.Configuration>(typeof(PipelineA.Pipeline<,>));
    ```
+   To register Request-Handlers and Notification-Handlers, we suggest using the [ServiceScan.SourceGenerator](https://github.com/Dreamescaper/ServiceScan.SourceGenerator) package (or the [Scrutor](https://github.com/khellang/Scrutor) package if Native AOT is not a concern).
+   
 ### Use IMediator to handle requests
 
 ```csharp
