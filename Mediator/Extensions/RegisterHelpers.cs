@@ -6,6 +6,7 @@ namespace Minimal.Mediator.Extensions;
 
 internal static class RegisterHelpers
 {
+    [RequiresUnreferencedCode("Calls System.Reflection.Assembly.GetTypes()")]
     public static void RegisterAsImplementedInterfaces(
         IServiceCollection services,
         Assembly assembly,
@@ -23,6 +24,7 @@ internal static class RegisterHelpers
         Console.WriteLine(new string('*', 80));
     }
 
+    [RequiresUnreferencedCode("Calls System.Reflection.Assembly.GetTypes()")]
     private static IEnumerable<(Type ServiceType, Type ImplementationType)> Scan(Assembly assembly, Type openGenericType)
     {
         return assembly

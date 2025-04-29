@@ -2,7 +2,7 @@
 
 namespace Minimal.Mediator.Extensions;
 
-public static class RequestExtensions
+internal static class RequestExtensions
 {
     public static TRequest AsRequestType<TRequest, TResponse>(this IRequest<TRequest, TResponse> request)
     {
