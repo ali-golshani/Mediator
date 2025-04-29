@@ -1,8 +1,6 @@
 ﻿using Minimal.Mediator;
-using Minimal.Mediator.Extensions;
 using Minimal.Mediator.Middlewares;
 using System.Diagnostics.CodeAnalysis;
-using System.Reflection;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -12,18 +10,6 @@ public static class MinimalExtensions
     {
         services.AddScoped(typeof(Publisher<>));
         services.AddScoped<IMediator, Mediator>();
-    }
-
-    [RequiresUnreferencedCode("Calls System.Reflection.Assembly.GetTypes()")]
-    public static void AddRequestHandlers(this IServiceCollection services, Assembly assembly)
-    {
-        RegisterHelpers.RegisterAsImplementedInterfaces(services, assembly, typeof(IRequestHandler<,>), ServiceLifetime.Scoped);
-    }
-
-    [RequiresUnreferencedCode("Calls System.Reflection.Assembly.GetTypes()")]
-    public static void AddNotificationHandlers(this IServiceCollection services, Assembly assembly)
-    {
-        RegisterHelpers.RegisterAsImplementedInterfaces(services, assembly, typeof(INotificationHandler<>), ServiceLifetime.Scoped);
     }
 
     public static void AddKeyedPipeline<TPipelineConfiguration>(

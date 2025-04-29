@@ -3,14 +3,23 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Minimal.Mediator.Middlewares;
 
-public sealed class MiddlewareDescriptor(Type implementationType, Type interfaceType)
+public sealed class MiddlewareDescriptor
 {
     [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors)]
-    public Type ImplementationType { get; } = implementationType;
+    public Type ImplementationType { get; }
 
-    public Type InterfaceType { get; } = interfaceType;
+    public Type InterfaceType { get; }
 
-    public MiddlewareDescriptor(Type implementationType)
+    public MiddlewareDescriptor(
+        [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors)] Type implementationType,
+        Type interfaceType)
+    {
+        ImplementationType = implementationType;
+        InterfaceType = interfaceType;
+    }
+
+    public MiddlewareDescriptor(
+        [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors)] Type implementationType)
         : this(implementationType, typeof(IMiddleware<,>))
     { }
 
