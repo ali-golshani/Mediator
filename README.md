@@ -107,7 +107,7 @@ public sealed class SpecialMiddleware<TRequest, TResponse> : IMiddleware<TReques
    ///Register Pipeline
    services.AddKeyedPipeline<PipelineA.Configuration>(typeof(PipelineA.Pipeline<,>));
    ```
-   To automatically register Request-Handlers and Notification-Handlers, we suggest using the [ServiceScan.SourceGenerator](https://github.com/Dreamescaper/ServiceScan.SourceGenerator) package (or the [Scrutor](https://github.com/khellang/Scrutor) package if Native AOT is not a concern).
+   To automatically register Request-Handlers and Notification-Handlers, consider using the [ServiceScan.SourceGenerator](https://github.com/Dreamescaper/ServiceScan.SourceGenerator) package or the [Scrutor](https://github.com/khellang/Scrutor) package if Native AOT is not a concern ([code](Mediator.Sample/Extensions)).
    
 ### Use IMediator to handle requests
 
