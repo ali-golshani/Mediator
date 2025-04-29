@@ -38,11 +38,9 @@ internal static class ServiceCollectionBuilder
 
     private static void AddMinimalMediator(this IServiceCollection services)
     {
-        var assembly = typeof(Program).Assembly;
-
         MinimalExtensions.AddMediator(services);
-        services.AddRequestHandlers(assembly);
-        services.AddNotificationHandlers(assembly);
+        services.AddRequestHandlers();
+        services.AddNotificationHandlers();
         services.AddKeyedPipeline<Minimal.Mediator.PipelineConfiguration>(typeof(Minimal.Mediator.Pipeline<,>));
     }
 }
