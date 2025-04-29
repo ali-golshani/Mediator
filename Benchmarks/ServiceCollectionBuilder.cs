@@ -15,8 +15,13 @@ internal static class ServiceCollectionBuilder
     {
         services.AddSingleton(TextWriter.Null);
 
+        services.AddMediatR();
+        services.AddMediator();
         services.AddMinimalMediator();
+    }
 
+    private static void AddMediatR(this IServiceCollection services)
+    {
         services.AddMediatR(cfg =>
         {
             cfg.RegisterServicesFromAssemblyContaining<MediatR.Ping>();
@@ -24,7 +29,10 @@ internal static class ServiceCollectionBuilder
             cfg.AddOpenRequestPreProcessor(typeof(MediatR.GenericRequestPreProcessor<>));
             cfg.AddOpenRequestPostProcessor(typeof(MediatR.GenericRequestPostProcessor<,>));
         });
+    }
 
+    private static void AddMediator(this IServiceCollection services)
+    {
         services.AddMediator(options =>
         {
             options.Namespace = "Mediator";
