@@ -72,7 +72,7 @@ public sealed class SpecialMiddleware<TRequest, TResponse> : IMiddleware<TReques
 
    internal static class PipelineA
    {
-       internal sealed class Pipeline<TRequest, TResponse> : KeyedPipeline<TRequest, TResponse>
+       public sealed class Pipeline<TRequest, TResponse> : KeyedPipeline<TRequest, TResponse>
            where TRequest : IRequest<TRequest, TResponse>, IRequestA
        {
            public Pipeline(IServiceProvider serviceProvider)
@@ -80,7 +80,7 @@ public sealed class SpecialMiddleware<TRequest, TResponse> : IMiddleware<TReques
            { }
        }
    
-       internal sealed class Configuration : IKeyedPipelineConfiguration
+       public sealed class Configuration : IKeyedPipelineConfiguration
        {
            public static string PipelineName { get; } = "Pipeline_A";
    
