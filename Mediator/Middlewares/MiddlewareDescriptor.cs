@@ -24,11 +24,12 @@ public sealed class MiddlewareDescriptor(Type implementationType, Type interface
         return new MiddlewareDescriptor(implementationType);
     }
 
-    internal ServiceDescriptor ServiceDescriptor(ServiceLifetime serviceLifetime)
+    internal ServiceDescriptor ServiceDescriptor(string serviceKey, ServiceLifetime serviceLifetime)
     {
         return new ServiceDescriptor
         (
             serviceType: InterfaceType,
+            serviceKey: serviceKey,
             implementationType: ImplementationType,
             lifetime: serviceLifetime
         );

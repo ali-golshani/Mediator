@@ -35,7 +35,7 @@ public static class MinimalExtensions
 
         foreach (var descriptor in TPipelineConfiguration.Middlewares())
         {
-            services.Add(descriptor.ServiceDescriptor(ServiceLifetime.Scoped));
+            services.Add(descriptor.ServiceDescriptor(TPipelineConfiguration.PipelineName, ServiceLifetime.Scoped));
         }
     }
 }
