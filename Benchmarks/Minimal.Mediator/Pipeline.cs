@@ -14,13 +14,13 @@ internal sealed class PipelineConfiguration : IKeyedPipelineConfiguration
 {
     public static string PipelineName { get; } = "Pipeline";
 
-    public static Type[] Middlewares()
+    public static MiddlewareDescriptor[] Middlewares()
     {
         return
         [
-            typeof(GenericRequestPreProcessor<,>),
-            typeof(GenericPipelineBehavior<,>),
-            typeof(GenericRequestPostProcessor<,>),
+            new MiddlewareDescriptor(typeof(GenericRequestPreProcessor<,>)),
+            new MiddlewareDescriptor(typeof(GenericPipelineBehavior<,>)),
+            new MiddlewareDescriptor(typeof(GenericRequestPostProcessor<,>)),
         ];
     }
 }

@@ -1,7 +1,6 @@
 ﻿using Minimal.Mediator;
-using Minimal.Mediator.Extensions;
 using Minimal.Mediator.Middlewares;
-using System.Reflection;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -13,24 +12,16 @@ public static class MinimalExtensions
         services.AddScoped<IMediator, Mediator>();
     }
 
-    public static void AddRequestHandlers(this IServiceCollection services, Assembly assembly)
-    {
-        RegisterHelpers.RegisterAsImplementedInterfaces(services, assembly, typeof(IRequestHandler<,>), ServiceLifetime.Scoped);
-    }
-
-    public static void AddNotificationHandlers(this IServiceCollection services, Assembly assembly)
-    {
-        RegisterHelpers.RegisterAsImplementedInterfaces(services, assembly, typeof(INotificationHandler<>), ServiceLifetime.Scoped);
-    }
-
-    public static void AddKeyedPipeline<TPipelineConfiguration>(this IServiceCollection services, Type pipelineType)
+    public static void AddKeyedPipeline<TPipelineConfiguration>(
+        this IServiceCollection services,
+        [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors)] Type pipelineType)
         where TPipelineConfiguration : IKeyedPipelineConfiguration
     {
         services.AddScoped(typeof(IPipeline<,>), pipelineType);
 
-        foreach (var type in TPipelineConfiguration.Middlewares())
+        foreach (var descriptor in TPipelineConfiguration.Middlewares())
         {
-            services.AddKeyedScoped(typeof(IMiddleware<,>), TPipelineConfiguration.PipelineName, type);
+            services.Add(descriptor.ServiceDescriptor(TPipelineConfiguration.PipelineName, ServiceLifetime.Scoped));
         }
     }
 }

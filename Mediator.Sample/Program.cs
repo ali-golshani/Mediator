@@ -1,9 +1,11 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Minimal.Mediator.Sample;
 
 internal static class Program
 {
+    [RequiresUnreferencedCode("Calls Minimal.Mediator.Sample.ServiceCollectionBuilder.Build()")]
     static async Task Main()
     {
         var services = ServiceCollectionBuilder.Build();

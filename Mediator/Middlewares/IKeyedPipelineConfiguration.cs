@@ -3,5 +3,5 @@
 public interface IKeyedPipelineConfiguration
 {
     static abstract string PipelineName { get; }
-    static abstract Type[] Middlewares();
+    static abstract MiddlewareDescriptor[] Middlewares();
 }
