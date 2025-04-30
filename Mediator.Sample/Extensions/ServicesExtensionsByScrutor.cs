@@ -27,7 +27,7 @@ public static class ServicesExtensionsByScrutor
 
     public static void RegisterAsImplementedInterfaces(this IServiceCollection services, Type interfaceType)
     {
-        RegisterAsImplementedInterfaces(services, interfaceType, Assembly);
+        services.RegisterAsImplementedInterfaces(interfaceType, Assembly);
     }
 
     public static void RegisterAsImplementedInterfaces(
