@@ -24,6 +24,7 @@ internal static class PipelineA
             [
                 new MiddlewareDescriptor(typeof(ExceptionHandlingMiddleware<,>)),
                 new MiddlewareDescriptor(typeof(MiddlewareA<,>)),
+                new MiddlewareDescriptor(typeof(PingMiddleware), typeof(IMiddleware<Ping, Pong>)),
             ];
         }
     }

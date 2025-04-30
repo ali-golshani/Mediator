@@ -35,11 +35,11 @@ internal static class Program
         await Send(mediator, new Requests.RequestB { Number = 1020 });
         await Send(mediator, new Requests.SpecialRequestA());
         await Send(mediator, new Requests.SpecialRequestB());
-
+        await Send(mediator, new Requests.Ping());
     }
 
-    private static async Task Send<T>(IMediator mediator, T request)
-        where T : IRequest<T, string>
+    private static async Task Send<TRequest, TResponse>(IMediator mediator, IRequest<TRequest, TResponse> request)
+        where TRequest : IRequest<TRequest, TResponse>
     {
         Console.WriteLine(request.GetType().Name);
         var response = await mediator.Send(request, default);
