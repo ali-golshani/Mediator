@@ -12,17 +12,22 @@ public static class ServicesExtensionsByScrutor
 
     public static void AddValidators(this IServiceCollection services)
     {
-        services.RegisterAsImplementedInterfaces(typeof(IValidator<>), Assembly);
+        services.RegisterAsImplementedInterfaces(typeof(IValidator<>));
     }
 
     public static void AddRequestHandlers(this IServiceCollection services)
     {
-        services.RegisterAsImplementedInterfaces(typeof(IRequestHandler<,>), Assembly);
+        services.RegisterAsImplementedInterfaces(typeof(IRequestHandler<,>));
     }
 
     public static void AddNotificationHandlers(this IServiceCollection services)
     {
-        services.RegisterAsImplementedInterfaces(typeof(INotificationHandler<>), Assembly);
+        services.RegisterAsImplementedInterfaces(typeof(INotificationHandler<>));
+    }
+
+    public static void RegisterAsImplementedInterfaces(this IServiceCollection services, Type interfaceType)
+    {
+        RegisterAsImplementedInterfaces(services, interfaceType, Assembly);
     }
 
     public static void RegisterAsImplementedInterfaces(
