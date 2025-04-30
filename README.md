@@ -19,14 +19,14 @@ This mediator enables the definition of different pipelines for various request 
 
 
 ```csharp
-public sealed class Ping : IRequest<Ping, string>, IRequestA
+public sealed class Ping : IRequest<Ping, Pong>, IRequestA
 {
     // Implementation details
 }
 
-public sealed class PingHandler : IRequestHandler<Ping, string>
+public sealed class PingHandler : IRequestHandler<Ping, Pong>
 {
-    public Task<string> Handle(Ping request, CancellationToken cancellationToken)
+    public Task<Pong> Handle(Ping request, CancellationToken cancellationToken)
     {
         // ...
     }
@@ -57,6 +57,11 @@ public sealed class ExceptionHandlingMiddleware<TRequest, TResponse> : IMiddlewa
 
 public sealed class SpecialMiddleware<TRequest, TResponse> : IMiddleware<TRequest, TResponse>
     where TRequest : ISpecialRequest
+{
+    // Middleware implementation
+}
+
+public sealed class PingMiddleware : IMiddleware<Ping, Pong>
 {
     // Middleware implementation
 }
@@ -91,6 +96,7 @@ public sealed class SpecialMiddleware<TRequest, TResponse> : IMiddleware<TReques
                    new MiddlewareDescriptor(typeof(ExceptionHandlingMiddleware<,>)),
                    new MiddlewareDescriptor(typeof(ValidationMiddleware<,>)),
                    new MiddlewareDescriptor(typeof(SpecialMiddleware<,>)),
+                   new MiddlewareDescriptor(typeof(PingMiddleware), typeof(IMiddleware<Ping, Pong>)),
                ];
            }
        }
