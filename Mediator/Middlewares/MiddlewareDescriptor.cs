@@ -9,38 +9,37 @@ public sealed class MiddlewareDescriptor
     public Type ImplementationType { get; }
 
     public Type InterfaceType { get; }
+    public ServiceLifetime ServiceLifetime { get; }
 
     public MiddlewareDescriptor(
         [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors)] Type implementationType,
-        Type interfaceType)
+        Type interfaceType,
+        ServiceLifetime serviceLifetime = ServiceLifetime.Scoped)
     {
         ImplementationType = implementationType;
         InterfaceType = interfaceType;
+        ServiceLifetime = serviceLifetime;
     }
 
     public MiddlewareDescriptor(
-        [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors)] Type implementationType)
-        : this(implementationType, typeof(IMiddleware<,>))
+        [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors)] Type implementationType,
+        ServiceLifetime serviceLifetime = ServiceLifetime.Scoped)
+        : this(implementationType, typeof(IMiddleware<,>), serviceLifetime)
     { }
-
-    public static implicit operator MiddlewareDescriptor((Type ImplementationType, Type InterfaceType) tuple)
-    {
-        return new MiddlewareDescriptor(tuple.ImplementationType, tuple.InterfaceType);
-    }
 
     public static implicit operator MiddlewareDescriptor(Type implementationType)
     {
         return new MiddlewareDescriptor(implementationType);
     }
 
-    internal ServiceDescriptor ServiceDescriptor(string serviceKey, ServiceLifetime serviceLifetime)
+    internal ServiceDescriptor ServiceDescriptor(string serviceKey)
     {
         return new ServiceDescriptor
         (
             serviceType: InterfaceType,
             serviceKey: serviceKey,
             implementationType: ImplementationType,
-            lifetime: serviceLifetime
+            lifetime: ServiceLifetime
         );
     }
 }

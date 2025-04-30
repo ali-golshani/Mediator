@@ -8,7 +8,7 @@ public static class MinimalExtensions
 {
     public static void AddMediator(this IServiceCollection services)
     {
-        services.AddScoped(typeof(Publisher<>));
+        services.AddTransient(typeof(Publisher<>));
         services.AddScoped<IMediator, Mediator>();
     }
 
@@ -17,11 +17,11 @@ public static class MinimalExtensions
         [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors)] Type pipelineType)
         where TPipelineConfiguration : IKeyedPipelineConfiguration
     {
-        services.AddScoped(typeof(IPipeline<,>), pipelineType);
+        services.AddTransient(typeof(IPipeline<,>), pipelineType);
 
         foreach (var descriptor in TPipelineConfiguration.Middlewares())
         {
-            services.Add(descriptor.ServiceDescriptor(TPipelineConfiguration.PipelineName, ServiceLifetime.Scoped));
+            services.Add(descriptor.ServiceDescriptor(TPipelineConfiguration.PipelineName));
         }
     }
 }
