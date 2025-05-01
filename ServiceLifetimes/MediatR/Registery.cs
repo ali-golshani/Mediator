@@ -5,8 +5,8 @@ namespace MediatR;
 
 internal static class Registry
 {
-    public static readonly ServiceLifetime Lifetime = ServiceLifetime.Transient;
-    public static readonly ServiceLifetime MiddlewareLifetime = ServiceLifetime.Transient;
+    public static readonly ServiceLifetime Lifetime = ServiceLifetime.Scoped;
+    public static readonly ServiceLifetime MiddlewareLifetime = ServiceLifetime.Scoped;
 
     public static void AddMediatR(this IServiceCollection services)
     {

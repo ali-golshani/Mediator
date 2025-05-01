@@ -12,11 +12,11 @@ internal static class Program
         var services = ServiceCollectionBuilder.Build();
         var rootServiceProvider = services.BuildServiceProvider();
 
-        WriteTitle("MediatR");
-        MediatR.App.Run(rootServiceProvider);
-
         WriteTitle("Mediator");
         Mediator.App.Run(rootServiceProvider);
+
+        WriteTitle("MediatR");
+        MediatR.App.Run(rootServiceProvider);
 
         WriteTitle("Minimal");
         Minimal.Mediator.App.Run(rootServiceProvider);

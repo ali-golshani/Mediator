@@ -5,9 +5,9 @@ namespace Minimal.Mediator;
 
 internal static class Registry
 {
-    public static readonly ServiceLifetime PipelineLifetime = ServiceLifetime.Transient;
-    public static readonly ServiceLifetime MiddlewareLifetime = ServiceLifetime.Transient;
-    public static readonly ServiceLifetime HandlerLifetime = ServiceLifetime.Transient;
+    public static readonly ServiceLifetime PipelineLifetime = ServiceLifetime.Scoped;
+    public static readonly ServiceLifetime MiddlewareLifetime = ServiceLifetime.Scoped;
+    public static readonly ServiceLifetime HandlerLifetime = ServiceLifetime.Scoped;
 
     public static void AddMinimalMediator(this IServiceCollection services)
     {
