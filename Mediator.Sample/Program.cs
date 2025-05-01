@@ -1,11 +1,9 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using System.Diagnostics.CodeAnalysis;
 
 namespace Minimal.Mediator.Sample;
 
 internal static class Program
 {
-    [RequiresUnreferencedCode("Calls Minimal.Mediator.Sample.ServiceCollectionBuilder.Build()")]
     static async Task Main()
     {
         var services = ServiceCollectionBuilder.Build();
@@ -44,11 +42,6 @@ internal static class Program
         Console.WriteLine(request.GetType().Name);
         var response = await mediator.Send(request, default);
         Console.WriteLine(response);
-        WriteLine();
-    }
-
-    private static void WriteLine()
-    {
         Console.WriteLine(new string('-', 50));
     }
 }

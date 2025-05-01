@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mediator.Sample", "Mediator
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Benchmarks", "Benchmarks\Benchmarks.csproj", "{7DBD64C2-E177-4407-A454-2CAA86CC54C5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceLifetimes", "ServiceLifetimes\ServiceLifetimes.csproj", "{2E0C2639-3FE1-4FD5-A58D-FC52A400CAE3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{7DBD64C2-E177-4407-A454-2CAA86CC54C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7DBD64C2-E177-4407-A454-2CAA86CC54C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7DBD64C2-E177-4407-A454-2CAA86CC54C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E0C2639-3FE1-4FD5-A58D-FC52A400CAE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E0C2639-3FE1-4FD5-A58D-FC52A400CAE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E0C2639-3FE1-4FD5-A58D-FC52A400CAE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E0C2639-3FE1-4FD5-A58D-FC52A400CAE3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
