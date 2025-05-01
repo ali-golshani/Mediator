@@ -1,6 +1,6 @@
 ﻿namespace Minimal.Mediator;
 
-public interface IPublisher<TNotification>
+public interface IPublisher<in TNotification>
     where TNotification : INotification
 {
     Task Publish(TNotification notification, CancellationToken cancellationToken);
