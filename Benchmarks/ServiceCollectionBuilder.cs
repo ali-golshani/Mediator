@@ -24,10 +24,11 @@ internal static class ServiceCollectionBuilder
     {
         services.AddMediatR(cfg =>
         {
+            cfg.Lifetime = ServiceLifetime.Scoped;
             cfg.RegisterServicesFromAssemblyContaining<MediatR.Ping>();
-            cfg.AddOpenBehavior(typeof(MediatR.GenericPipelineBehavior<,>));
-            cfg.AddOpenRequestPreProcessor(typeof(MediatR.GenericRequestPreProcessor<>));
-            cfg.AddOpenRequestPostProcessor(typeof(MediatR.GenericRequestPostProcessor<,>));
+            cfg.AddOpenBehavior(typeof(MediatR.GenericPipelineBehavior<,>), ServiceLifetime.Scoped);
+            cfg.AddOpenRequestPreProcessor(typeof(MediatR.GenericRequestPreProcessor<>), ServiceLifetime.Scoped);
+            cfg.AddOpenRequestPostProcessor(typeof(MediatR.GenericRequestPostProcessor<,>), ServiceLifetime.Scoped);
         });
     }
 
@@ -39,9 +40,9 @@ internal static class ServiceCollectionBuilder
             options.ServiceLifetime = ServiceLifetime.Scoped;
         });
 
-        services.AddSingleton(typeof(Mediator.IPipelineBehavior<,>), typeof(Mediator.GenericRequestPreProcessor<,>));
-        services.AddSingleton(typeof(Mediator.IPipelineBehavior<,>), typeof(Mediator.GenericPipelineBehavior<,>));
-        services.AddSingleton(typeof(Mediator.IPipelineBehavior<,>), typeof(Mediator.GenericRequestPostProcessor<,>));
+        services.AddScoped(typeof(Mediator.IPipelineBehavior<,>), typeof(Mediator.GenericRequestPreProcessor<,>));
+        services.AddScoped(typeof(Mediator.IPipelineBehavior<,>), typeof(Mediator.GenericPipelineBehavior<,>));
+        services.AddScoped(typeof(Mediator.IPipelineBehavior<,>), typeof(Mediator.GenericRequestPostProcessor<,>));
     }
 
     private static void AddMinimalMediator(this IServiceCollection services)
@@ -49,6 +50,6 @@ internal static class ServiceCollectionBuilder
         MinimalExtensions.AddMediator(services);
         services.AddRequestHandlers();
         services.AddNotificationHandlers();
-        services.AddKeyedPipeline<Minimal.Mediator.PipelineConfiguration>(typeof(Minimal.Mediator.Pipeline<,>));
+        services.AddKeyedPipeline<Minimal.Mediator.PipelineConfiguration>(typeof(Minimal.Mediator.Pipeline<,>), ServiceLifetime.Scoped);
     }
 }

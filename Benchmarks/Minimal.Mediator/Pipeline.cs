@@ -1,4 +1,5 @@
-﻿using Minimal.Mediator.Middlewares;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Minimal.Mediator.Middlewares;
 
 namespace Minimal.Mediator;
 
@@ -18,9 +19,9 @@ internal sealed class PipelineConfiguration : IKeyedPipelineConfiguration
     {
         return
         [
-            new MiddlewareDescriptor(typeof(GenericRequestPreProcessor<,>)),
-            new MiddlewareDescriptor(typeof(GenericPipelineBehavior<,>)),
-            new MiddlewareDescriptor(typeof(GenericRequestPostProcessor<,>)),
+            new MiddlewareDescriptor(typeof(GenericRequestPreProcessor<,>), ServiceLifetime.Scoped),
+            new MiddlewareDescriptor(typeof(GenericPipelineBehavior<,>), ServiceLifetime.Scoped),
+            new MiddlewareDescriptor(typeof(GenericRequestPostProcessor<,>), ServiceLifetime.Scoped),
         ];
     }
 }

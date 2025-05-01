@@ -14,10 +14,11 @@ public static class MinimalExtensions
 
     public static void AddKeyedPipeline<TPipelineConfiguration>(
         this IServiceCollection services,
-        [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors)] Type pipelineType)
+        [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors)] Type pipelineType,
+        ServiceLifetime serviceLifetime = ServiceLifetime.Transient)
         where TPipelineConfiguration : IKeyedPipelineConfiguration
     {
-        services.AddTransient(typeof(IPipeline<,>), pipelineType);
+        services.Add(new ServiceDescriptor(typeof(IPipeline<,>), pipelineType, serviceLifetime));
 
         foreach (var descriptor in TPipelineConfiguration.Middlewares())
         {
