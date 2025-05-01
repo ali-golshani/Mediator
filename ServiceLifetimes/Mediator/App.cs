@@ -10,6 +10,10 @@ public static class App
 
     public static void Run(ServiceProvider rootServiceProvider)
     {
+        Console.WriteLine($"{nameof(Registry.Lifetime)}: {Registry.Lifetime}");
+        Console.WriteLine($"{nameof(Registry.MiddlewareLifetime)}: {Registry.MiddlewareLifetime}");
+        Console.WriteLine();
+
         for (int i = 0; i < N; i++)
         {
             using var scope = rootServiceProvider.CreateScope();
