@@ -1,6 +1,7 @@
 ﻿namespace Minimal.Mediator;
 
 internal sealed class Publisher<TNotification>(IEnumerable<INotificationHandler<TNotification>> handlers)
+    : IPublisher<TNotification>
     where TNotification : INotification
 {
     private readonly INotificationHandler<TNotification>[] handlers = [.. handlers];

@@ -1,9 +1,6 @@
-namespace ServiceLifetimes;
+namespace Mediator;
 
-public sealed class Ping :
-    Minimal.Mediator.IRequest<Ping, Pong>,
-    MediatR.IRequest<Pong>,
-    Mediator.IRequest<Pong>
+public sealed class Ping : IRequest<Pong>
 {
     private static int iteration = 0;
     public readonly int Id = Interlocked.Increment(ref iteration);

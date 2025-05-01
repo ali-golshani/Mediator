@@ -25,6 +25,12 @@ public class PublishBenchmarks : BenchmarksBase
         return miMediator.Publish(miNotification, default);
     }
 
+    [Benchmark(Description = "One Handlers - Minimal Publisher")]
+    public Task Minimal_Publisher()
+    {
+        return miPublisher.Publish(miNotification, default);
+    }
+
     [Benchmark(Description = "One Handlers - MediatR")]
     public Task MediatR_Publish()
     {
@@ -41,6 +47,12 @@ public class PublishBenchmarks : BenchmarksBase
     public Task Minimal_Publish_TwoHandlers()
     {
         return miMediator.Publish(miNotificationTwo, default);
+    }
+
+    [Benchmark(Description = "Two Handlers - Minimal Publisher")]
+    public Task Minimal_Publisher_TwoHandlers()
+    {
+        return miPublisherTwo.Publish(miNotificationTwo, default);
     }
 
     [Benchmark(Description = "Two Handlers - MediatR")]

@@ -8,19 +8,15 @@ public static class ServicesExtensions
 {
     public static readonly Assembly Assembly = typeof(ServicesExtensions).Assembly;
 
-    public static void AddRequestHandlers(this IServiceCollection services)
+    public static void AddRequestHandlers(this IServiceCollection services, ServiceLifetime serviceLifetime)
     {
-        services.RegisterAsImplementedInterfaces(typeof(IRequestHandler<,>), Assembly);
-    }
-
-    public static void AddNotificationHandlers(this IServiceCollection services)
-    {
-        services.RegisterAsImplementedInterfaces(typeof(INotificationHandler<>), Assembly);
+        services.RegisterAsImplementedInterfaces(typeof(IRequestHandler<,>), serviceLifetime, Assembly);
     }
 
     public static void RegisterAsImplementedInterfaces(
         this IServiceCollection services,
         Type interfaceType,
+        ServiceLifetime serviceLifetime,
         params Assembly[] assemblies)
     {
         services.Scan(scan =>
@@ -29,7 +25,7 @@ public static class ServicesExtensions
                 .FromAssemblies(assemblies)
                 .AddClasses(classes => classes.AssignableTo(interfaceType), publicOnly: false)
                 .AsImplementedInterfaces()
-                .WithScopedLifetime();
+                .WithLifetime(serviceLifetime);
         });
     }
 }

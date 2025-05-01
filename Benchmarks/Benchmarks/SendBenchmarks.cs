@@ -21,6 +21,12 @@ public class SendBenchmarks : BenchmarksBase
         return miMediator.Send(miRequest, default);
     }
 
+    [Benchmark(Description = "Minimal Sender")]
+    public Task Minimal_Sender()
+    {
+        return miSender.Send(miRequest, default);
+    }
+
     [Benchmark(Description = "MediatR")]
     public Task MediatR_Send()
     {

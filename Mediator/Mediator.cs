@@ -1,7 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Minimal.Mediator.Exceptions;
 using Minimal.Mediator.Extensions;
-using Minimal.Mediator.Middlewares;
 
 namespace Minimal.Mediator;
 
@@ -12,21 +10,10 @@ internal sealed class Mediator(IServiceProvider serviceProvider) : IMediator
     public Task<TResponse> Send<TRequest, TResponse>(IRequest<TRequest, TResponse> request, CancellationToken cancellationToken)
         where TRequest : IRequest<TRequest, TResponse>
     {
-        var pipelines = serviceProvider.GetServices<IPipeline<TRequest, TResponse>>().ToArray();
-
-        if (pipelines.Length == 0)
-        {
-            throw new MissingRequestPipelineException<TRequest>();
-        }
-
-        if (pipelines.Length > 1)
-        {
-            var pipelineTypes = pipelines.Select(x => x.GetType()).ToArray();
-            throw new DuplicateRequestPipelineException<TRequest>(pipelineTypes);
-        }
-
-        var pipeline = pipelines[0];
-        return pipeline.Handle(request.AsRequestType(), cancellationToken);
+        return
+            serviceProvider
+            .GetRequiredService<ISender<TRequest, TResponse>>()
+            .Send(request.AsRequestType(), cancellationToken);
     }
 
     public Task Publish<TNotification>(TNotification notification, CancellationToken cancellationToken)
@@ -34,7 +21,7 @@ internal sealed class Mediator(IServiceProvider serviceProvider) : IMediator
     {
         return
             serviceProvider
-            .GetRequiredService<Publisher<TNotification>>()
+            .GetRequiredService<IPublisher<TNotification>>()
             .Publish(notification, cancellationToken);
     }
 }

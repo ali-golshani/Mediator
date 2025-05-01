@@ -1,8 +1,6 @@
-using Microsoft.Extensions.DependencyInjection;
-using Minimal.Mediator;
 using Minimal.Mediator.Middlewares;
 
-namespace ServiceLifetimes;
+namespace Minimal.Mediator;
 
 public static class PingPipeline
 {
@@ -22,7 +20,7 @@ public static class PingPipeline
         {
             return
             [
-                new MiddlewareDescriptor(typeof(PingMiddleware), typeof(IMiddleware<Ping, Pong>), ServiceLifetime.Transient),
+                new MiddlewareDescriptor(typeof(PingMiddleware), typeof(IMiddleware<Ping, Pong>), Registry.MiddlewareLifetime),
             ];
         }
     }

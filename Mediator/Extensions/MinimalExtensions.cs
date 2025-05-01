@@ -8,7 +8,8 @@ public static class MinimalExtensions
 {
     public static void AddMediator(this IServiceCollection services)
     {
-        services.AddTransient(typeof(Publisher<>));
+        services.AddTransient(typeof(ISender<,>), typeof(Sender<,>));
+        services.AddTransient(typeof(IPublisher<>), typeof(Publisher<>));
         services.AddScoped<IMediator, Mediator>();
     }
 
