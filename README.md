@@ -126,5 +126,16 @@ private static async Task Sample(IMediator mediator, CancellationToken cancellat
 }
 ```
 
+You can also utilize the `ISender<,>` service directly for request handling, ensuring a streamlined and efficient process.
+
+```csharp
+private static async Task Sample(ISender<Ping, Pong> sender, CancellationToken cancellationToken)
+{
+    var request = new Ping() { /* ... */ };
+    var response = await sender.Send(request, cancellationToken);
+    // ...
+}
+```
+
 Please refer to the [sample project](Mediator.Sample) for more details.
 
