@@ -10,10 +10,7 @@ internal sealed class Mediator(IServiceProvider serviceProvider) : IMediator
     public Task<TResponse> Send<TRequest, TResponse>(IRequest<TRequest, TResponse> request, CancellationToken cancellationToken = default)
         where TRequest : IRequest<TRequest, TResponse>
     {
-        return
-            serviceProvider
-            .GetRequiredService<ISender<TRequest, TResponse>>()
-            .Send(request.AsRequestType(), cancellationToken);
+        return new Sender<TRequest, TResponse>(serviceProvider).Send(request.AsRequestType(), cancellationToken);
     }
 
     public Task Publish<TNotification>(TNotification notification, CancellationToken cancellationToken = default)
