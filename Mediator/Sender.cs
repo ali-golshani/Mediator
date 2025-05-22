@@ -1,23 +1,28 @@
-﻿using Minimal.Mediator.Exceptions;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Minimal.Mediator.Exceptions;
 using Minimal.Mediator.Extensions;
 using Minimal.Mediator.Middlewares;
 
 namespace Minimal.Mediator;
 
-internal sealed class Sender<TRequest, TResponse> : ISender<TRequest, TResponse>
+internal sealed class Sender<TRequest, TResponse>(IServiceProvider serviceProvider) : ISender<TRequest, TResponse>
     where TRequest : IRequest<TRequest, TResponse>
 {
-    private readonly IPipeline<TRequest, TResponse> pipeline;
+    private readonly IPipeline<TRequest, TResponse> pipeline = Pipeline(serviceProvider);
 
-    public Sender(IEnumerable<IPipeline<TRequest, TResponse>> pipelines)
-        : this([.. pipelines])
-    { }
-
-    private Sender(IPipeline<TRequest, TResponse>[] pipelines)
+    public Task<TResponse> Send(TRequest request, CancellationToken cancellationToken)
     {
+        return pipeline.Handle(request.AsRequestType(), cancellationToken);
+    }
+
+    private static IPipeline<TRequest, TResponse> Pipeline(IServiceProvider serviceProvider)
+    {
+        var pipelines = serviceProvider.GetServices<IPipeline<TRequest, TResponse>>().ToArray();
+
         if (pipelines.Length == 0)
         {
-            throw new MissingRequestPipelineException<TRequest>();
+            var handler = serviceProvider.GetRequiredService<IRequestHandler<TRequest, TResponse>>();
+            return new EmptyPipeline<TRequest, TResponse>(handler);
         }
 
         if (pipelines.Length > 1)
@@ -26,11 +31,6 @@ internal sealed class Sender<TRequest, TResponse> : ISender<TRequest, TResponse>
             throw new DuplicateRequestPipelineException<TRequest>(pipelineTypes);
         }
 
-        pipeline = pipelines[0];
-    }
-
-    public Task<TResponse> Send(TRequest request, CancellationToken cancellationToken)
-    {
-        return pipeline.Handle(request.AsRequestType(), cancellationToken);
+        return pipelines[0];
     }
 }
