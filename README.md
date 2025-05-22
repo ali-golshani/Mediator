@@ -114,7 +114,9 @@ public sealed class PingMiddleware : IMiddleware<Ping, Pong>
    services.AddKeyedPipeline<PipelineA.Configuration>(typeof(PipelineA.Pipeline<,>));
    ```
    To automatically register Request-Handlers and Notification-Handlers, consider using the [ServiceScan.SourceGenerator](https://github.com/Dreamescaper/ServiceScan.SourceGenerator) package or the [Scrutor](https://github.com/khellang/Scrutor) package if Native AOT is not a concern ([code](Mediator.Sample/Extensions)).
-   
+
+> If a request of type `TRequest` does not have a registered pipeline, it will be forwarded directly to its designated handler.
+
 ### Use IMediator to handle requests
 
 ```csharp
