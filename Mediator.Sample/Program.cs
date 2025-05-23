@@ -34,6 +34,7 @@ internal static class Program
         await Send(mediator, new Requests.SpecialRequestA());
         await Send(mediator, new Requests.SpecialRequestB());
         await Send(mediator, new Requests.Ping());
+        await Send(mediator, new Requests.RequestC());
     }
 
     private static async Task Send<TRequest, TResponse>(IMediator mediator, IRequest<TRequest, TResponse> request)
