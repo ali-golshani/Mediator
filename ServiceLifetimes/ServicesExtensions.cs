@@ -17,12 +17,12 @@ public static class ServicesExtensions
         this IServiceCollection services,
         Type interfaceType,
         ServiceLifetime serviceLifetime,
-        params Assembly[] assemblies)
+        Assembly assembly)
     {
         services.Scan(scan =>
         {
             scan
-                .FromAssemblies(assemblies)
+                .FromAssemblies(assembly)
                 .AddClasses(classes => classes.AssignableTo(interfaceType), publicOnly: false)
                 .AsImplementedInterfaces()
                 .WithLifetime(serviceLifetime);

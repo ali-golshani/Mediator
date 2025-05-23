@@ -21,12 +21,12 @@ public static class ServicesExtensions
     public static void RegisterAsImplementedInterfaces(
         this IServiceCollection services,
         Type interfaceType,
-        params Assembly[] assemblies)
+        Assembly assembly)
     {
         services.Scan(scan =>
         {
             scan
-                .FromAssemblies(assemblies)
+                .FromAssemblies(assembly)
                 .AddClasses(classes => classes.AssignableTo(interfaceType), publicOnly: false)
                 .AsImplementedInterfaces()
                 .WithScopedLifetime();

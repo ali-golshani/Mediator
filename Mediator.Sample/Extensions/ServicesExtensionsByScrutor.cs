@@ -12,33 +12,28 @@ public static class ServicesExtensionsByScrutor
 
     public static void AddValidators(this IServiceCollection services)
     {
-        services.RegisterAsImplementedInterfaces(typeof(IValidator<>));
+        services.RegisterAsImplementedInterfaces(typeof(IValidator<>), Assembly);
     }
 
     public static void AddRequestHandlers(this IServiceCollection services)
     {
-        services.RegisterAsImplementedInterfaces(typeof(IRequestHandler<,>));
+        services.RegisterAsImplementedInterfaces(typeof(IRequestHandler<,>), Assembly);
     }
 
     public static void AddNotificationHandlers(this IServiceCollection services)
     {
-        services.RegisterAsImplementedInterfaces(typeof(INotificationHandler<>));
-    }
-
-    public static void RegisterAsImplementedInterfaces(this IServiceCollection services, Type interfaceType)
-    {
-        services.RegisterAsImplementedInterfaces(interfaceType, Assembly);
+        services.RegisterAsImplementedInterfaces(typeof(INotificationHandler<>), Assembly);
     }
 
     public static void RegisterAsImplementedInterfaces(
         this IServiceCollection services,
         Type interfaceType,
-        params Assembly[] assemblies)
+        Assembly assembly)
     {
         services.Scan(scan =>
         {
             scan
-                .FromAssemblies(assemblies)
+                .FromAssemblies(assembly)
                 .AddClasses(classes => classes.AssignableTo(interfaceType), publicOnly: false)
                 .AsImplementedInterfaces()
                 .WithScopedLifetime();
