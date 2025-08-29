@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Minimal.Mediator.Exceptions;
-using Minimal.Mediator.Extensions;
 using Minimal.Mediator.Middlewares;
 
 namespace Minimal.Mediator;
@@ -12,7 +11,7 @@ internal sealed class Sender<TRequest, TResponse>(IServiceProvider serviceProvid
 
     public Task<TResponse> Send(TRequest request, CancellationToken cancellationToken)
     {
-        return pipeline.Handle(request.AsRequestType(), cancellationToken);
+        return pipeline.Handle(request, cancellationToken);
     }
 
     private static IPipeline<TRequest, TResponse> Pipeline(IServiceProvider serviceProvider)
